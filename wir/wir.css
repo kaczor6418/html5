@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+}
+
+.ball {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: inset -25px -15px 40px rgba(0,0,0,.3);
+    background: rgb(205,63,251);
+    background: radial-gradient(circle, rgba(205,63,251,1) 0%, rgba(122,252,70,1) 100%);
+}
