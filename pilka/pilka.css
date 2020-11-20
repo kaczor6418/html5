@@ -31,10 +31,8 @@ body {
 @keyframes move-right {
     0% {
         left: 0;
-        right: 0;
     }
     100% {
-        left: 100vw;
-        right: 0;
+        left: calc(100vw - 50px);
     }
 }
