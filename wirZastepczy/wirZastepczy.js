@@ -2,11 +2,15 @@
 
     const canvas = document.querySelector('#stairs-and-ball');
     const context = canvas.getContext('2d');
+    const baseElmentDrawDeley = 1000;
+    const baseXPosition = 100;
+    const baseYPosition = 100;
     const ballData = {
         x: 0,
         y: 0, 
         r: 0
     };
+    const stairs = [];
 
     const drawRectangle = (x, y, width, height) => {
         context.beginPath();
@@ -21,19 +25,24 @@
     }
 
     const drawBall = () => {
-        const radius = 50;
-        ballData.x = 100 + radius;
-        ballData.y = 100 - radius;
+        const radius = 25;
+        ballData.x = baseXPosition + radius;
+        ballData.y = baseYPosition - radius;
         ballData.r = radius;
-        drawCircle(ballData.x, ballData.y, ballData.r);
+        window.setTimeout(() => drawCircle(ballData.x, ballData.y, ballData.r), baseElmentDrawDeley * (stairs.length + 1));
     }
 
     const drawStairs = () => {
-        window.setTimeout(() => drawRectangle(100, 100, 100, 100), 1000);
-        window.setTimeout(() => drawRectangle(100, 200, 200, 100), 2000);
-        window.setTimeout(() => drawRectangle(100, 300, 300, 100), 3000);
-        window.setTimeout(() => drawRectangle(100, 400, 400, 100), 4000);
-        window.setTimeout(() => drawRectangle(100, 500, 500, 100), 5000);
+        const baseStepWidth = 100;
+        const baseStepHeight = 100;
+        for (let i = 1; i < 4; i++) {
+            const step = {
+                xEnd: baseXPosition + baseStepWidth * i,
+                yEnd: baseYPosition + baseStepHeight * i
+            };
+            stairs.push(step);
+            window.setTimeout(() => drawRectangle(baseXPosition, baseYPosition * i, baseStepWidth * i, baseStepHeight), baseElmentDrawDeley * i);
+        }
     }
 
     window.webkitRequestAnimationFrame(drawStairs);
