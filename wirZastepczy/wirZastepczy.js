@@ -1,18 +1,23 @@
 (function () {
-    const canvas = document.querySelector('#stairs-and-ball');
-    const context = canvas.getContext('2d');
     const baseElmentDrawDeley = 1000;
     const baseXPosition = 100;
     const baseYPosition = 100;
-    const positionDelta = 1;
+    const baseStepWidth = 100;
+    const baseStepHeight = 100;
+    const baseRadius = baseStepWidth * 0.25;
     const stepsCount = 5;
-    let currentStep = 0;
+    const positionDelta = 1;
+    const context = canvas.getContext('2d');
     const ballData = {
-        x: 0,
-        y: 0, 
-        r: 0
+        x: baseXPosition + baseRadius,
+        y: baseYPosition - baseRadius, 
+        r: baseRadius
     };
-    const stairs = [];
+    const stairs = new Array(stepsCount);
+    const canvas = document.createElement('canvas');
+    canvas.width = baseXPosition + stepsCount * baseStepWidth;
+    canvas.height = baseYPosition + stepsCount * baseStepHeight;
+    let currentStep = 0;
 
     const drawRectangle = (x, y, width, height, color = 'black') => {
         context.fillStyle = color;
@@ -28,15 +33,12 @@
         context.fill();
     }
 
-
     // It is a hack not a good solution
     const removeCircle = (x, y, radius) => {
         context.clearRect(x - radius, y - radius, radius*2, radius*2);
     }
 
     const drawStairs = () => {
-        const baseStepWidth = 100;
-        const baseStepHeight = 100;
         for (let i = 1; i <= stepsCount; i++) {
             const step = {
                 x: baseXPosition + baseStepWidth * i,
@@ -48,10 +50,6 @@
     }
 
     const drawAbdAnimateBall = () => {
-        const radius = 25;
-        ballData.x = baseXPosition + radius;
-        ballData.y = baseYPosition - radius;
-        ballData.r = radius;
         window.setTimeout(() => {
             drawCircle(ballData.x, ballData.y, ballData.r);
             window.requestAnimationFrame(fallingBall);
