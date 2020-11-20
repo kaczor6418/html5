@@ -5,6 +5,8 @@
     const baseElmentDrawDeley = 1000;
     const baseXPosition = 100;
     const baseYPosition = 100;
+    const positionDelta = 1;
+    let currentStep = 0;
     const ballData = {
         x: 0,
         y: 0, 
@@ -31,8 +33,8 @@
         const baseStepHeight = 100;
         for (let i = 1; i < 4; i++) {
             const step = {
-                xEnd: baseXPosition + baseStepWidth * i,
-                yEnd: baseYPosition + baseStepHeight * i
+                x: baseXPosition + baseStepWidth * i,
+                y: baseYPosition + baseStepHeight * i
             };
             stairs.push(step);
             window.setTimeout(() => drawRectangle(baseXPosition, baseYPosition * i, baseStepWidth * i, baseStepHeight), baseElmentDrawDeley * i);
@@ -46,19 +48,28 @@
         ballData.r = radius;
         window.setTimeout(() => {
             drawCircle(ballData.x, ballData.y, ballData.r);
-            window.webkitRequestAnimationFrame(fallingBall);
+            window.requestAnimationFrame(fallingBall);
         }, baseElmentDrawDeley * (stairs.length + 1));
     }
 
     const fallingBall = () => {
-        const positionDelta = 1;
         drawCircle(ballData.x, ballData.y, ballData.r, 'white');
-        ballData.x += positionDelta;
-        ballData.y += positionDelta;
+        if(ballData.x > stairs[stairs.length - 1].x - ballData.r) { 
+            return void 0;
+        }
+        if(ballData.x <= stairs[currentStep].x + ballData.r) {
+            ballData.x += positionDelta;
+        } else {
+            if(ballData.y <= stairs[currentStep].y - ballData.r) {
+                ballData.y += positionDelta
+            } else {
+                ++currentStep;
+            }
+        }
         drawCircle(ballData.x, ballData.y, ballData.r);
         window.requestAnimationFrame(fallingBall);
     }
 
-    window.webkitRequestAnimationFrame(drawStairs);
-    window.webkitRequestAnimationFrame(drawAbdAnimateBall);
+    window.requestAnimationFrame(drawStairs);
+    window.requestAnimationFrame(drawAbdAnimateBall);
 })();
