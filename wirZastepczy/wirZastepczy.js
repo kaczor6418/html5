@@ -1,11 +1,11 @@
 (function () {
-
     const canvas = document.querySelector('#stairs-and-ball');
     const context = canvas.getContext('2d');
     const baseElmentDrawDeley = 1000;
     const baseXPosition = 100;
     const baseYPosition = 100;
     const positionDelta = 1;
+    const stepsCount = 5;
     let currentStep = 0;
     const ballData = {
         x: 0,
@@ -28,10 +28,16 @@
         context.fill();
     }
 
+
+    // It is a hack not a good solution
+    const removeCircle = (x, y, radius) => {
+        context.clearRect(x - radius, y - radius, radius*2, radius*2);
+    }
+
     const drawStairs = () => {
         const baseStepWidth = 100;
         const baseStepHeight = 100;
-        for (let i = 1; i < 4; i++) {
+        for (let i = 1; i <= stepsCount; i++) {
             const step = {
                 x: baseXPosition + baseStepWidth * i,
                 y: baseYPosition + baseStepHeight * i
@@ -53,10 +59,10 @@
     }
 
     const fallingBall = () => {
-        drawCircle(ballData.x, ballData.y, ballData.r, 'white');
         if(ballData.x > stairs[stairs.length - 1].x - ballData.r) { 
             return void 0;
         }
+        removeCircle(ballData.x, ballData.y, ballData.r, 'white');
         if(ballData.x <= stairs[currentStep].x + ballData.r) {
             ballData.x += positionDelta;
         } else {
