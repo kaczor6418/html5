@@ -7,16 +7,14 @@
     const baseRadius = baseStepWidth * 0.25;
     const stepsCount = 5;
     const positionDelta = 1;
-    const context = canvas.getContext('2d');
     const ballData = {
         x: baseXPosition + baseRadius,
         y: baseYPosition - baseRadius, 
         r: baseRadius
     };
-    const stairs = new Array(stepsCount);
-    const canvas = document.createElement('canvas');
-    canvas.width = baseXPosition + stepsCount * baseStepWidth;
-    canvas.height = baseYPosition + stepsCount * baseStepHeight;
+    const stairs = [];
+    const canvas = document.createElement('canvas');;
+    const context = canvas.getContext('2d');
     let currentStep = 0;
 
     const drawRectangle = (x, y, width, height, color = 'black') => {
@@ -74,6 +72,9 @@
         window.requestAnimationFrame(fallingBall);
     }
 
+    canvas.width = baseXPosition + stepsCount * baseStepWidth + 2 * baseRadius;
+    canvas.height = baseYPosition + stepsCount * baseStepHeight
+    document.body.appendChild(canvas);
     window.requestAnimationFrame(drawStairs);
     window.requestAnimationFrame(drawAbdAnimateBall);
 })();
