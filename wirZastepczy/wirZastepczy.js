@@ -59,14 +59,14 @@
     }
 
     const fallingBall = () => {
-        if(ballData.x > stairs[stairs.length - 1].x - ballData.r) { 
+        if(ballData.y === stairs[stairs.length - 1].y - ballData.r) { 
             return void 0;
         }
-        removeCircle(ballData.x, ballData.y, ballData.r, 'white');
-        if(ballData.x <= stairs[currentStep].x + ballData.r) {
+        removeCircle(ballData.x, ballData.y, ballData.r);
+        if(ballData.x < stairs[currentStep].x + ballData.r) {
             ballData.x += positionDelta;
         } else {
-            if(ballData.y <= stairs[currentStep].y - ballData.r) {
+            if(ballData.y < stairs[currentStep].y - ballData.r) {
                 ballData.y += positionDelta
             } else {
                 ++currentStep;
