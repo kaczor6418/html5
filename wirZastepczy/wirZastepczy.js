@@ -12,24 +12,18 @@
     };
     const stairs = [];
 
-    const drawRectangle = (x, y, width, height) => {
+    const drawRectangle = (x, y, width, height, color = 'black') => {
+        context.fillStyle = color;
         context.beginPath();
         context.rect(x, y, width, height);
         context.fill();
     }
 
-    const drawCircle = (x, y, radius) => {
+    const drawCircle = (x, y, radius, color = 'black') => {
+        context.fillStyle = color;
         context.beginPath();
         context.arc(x, y, radius, 0, Math.PI * 2);
         context.fill();
-    }
-
-    const drawBall = () => {
-        const radius = 25;
-        ballData.x = baseXPosition + radius;
-        ballData.y = baseYPosition - radius;
-        ballData.r = radius;
-        window.setTimeout(() => drawCircle(ballData.x, ballData.y, ballData.r), baseElmentDrawDeley * (stairs.length + 1));
     }
 
     const drawStairs = () => {
@@ -45,6 +39,26 @@
         }
     }
 
+    const drawAbdAnimateBall = () => {
+        const radius = 25;
+        ballData.x = baseXPosition + radius;
+        ballData.y = baseYPosition - radius;
+        ballData.r = radius;
+        window.setTimeout(() => {
+            drawCircle(ballData.x, ballData.y, ballData.r);
+            window.webkitRequestAnimationFrame(fallingBall);
+        }, baseElmentDrawDeley * (stairs.length + 1));
+    }
+
+    const fallingBall = () => {
+        const positionDelta = 1;
+        drawCircle(ballData.x, ballData.y, ballData.r, 'white');
+        ballData.x += positionDelta;
+        ballData.y += positionDelta;
+        drawCircle(ballData.x, ballData.y, ballData.r);
+        window.requestAnimationFrame(fallingBall);
+    }
+
     window.webkitRequestAnimationFrame(drawStairs);
-    window.webkitRequestAnimationFrame(drawBall);
+    window.webkitRequestAnimationFrame(drawAbdAnimateBall);
 })();
