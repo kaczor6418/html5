@@ -2,11 +2,30 @@
 
     const canvas = document.querySelector('#stairs-and-ball');
     const context = canvas.getContext('2d');
+    const ballData = {
+        x: 0,
+        y: 0, 
+        r: 0
+    };
 
     const drawRectangle = (x, y, width, height) => {
         context.beginPath();
         context.rect(x, y, width, height);
         context.fill();
+    }
+
+    const drawCircle = (x, y, radius) => {
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.fill();
+    }
+
+    const drawBall = () => {
+        const radius = 50;
+        ballData.x = 100 + radius;
+        ballData.y = 100 - radius;
+        ballData.r = radius;
+        drawCircle(ballData.x, ballData.y, ballData.r);
     }
 
     const drawStairs = () => {
@@ -18,4 +37,5 @@
     }
 
     window.webkitRequestAnimationFrame(drawStairs);
+    window.webkitRequestAnimationFrame(drawBall);
 })();
