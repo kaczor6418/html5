@@ -6,7 +6,7 @@
     const baseStepHeight = 100;
     const baseRadius = baseStepWidth * 0.25;
     const stepsCount = 5;
-    const positionDelta = 1;
+    const positionDelta = 3;
     const ballData = {
         x: baseXPosition + baseRadius,
         y: baseYPosition - baseRadius, 
@@ -31,7 +31,6 @@
         context.fill();
     }
 
-    // It is a hack not a good solution
     const removeCircle = (x, y, radius) => {
         context.clearRect(x - radius, y - radius, radius*2, radius*2);
     }
@@ -55,7 +54,7 @@
     }
 
     const fallingBall = () => {
-        if(ballData.y === stairs[stairs.length - 1].y - ballData.r) { 
+        if(ballData.y >= stairs[stairs.length - 1].y - ballData.r) { 
             return void 0;
         }
         removeCircle(ballData.x, ballData.y, ballData.r);
