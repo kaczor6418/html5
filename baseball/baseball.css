@@ -22,16 +22,16 @@
     height: 2rem;
     border-radius: 50%;
     background-color: blue;
-    animation: throw-ball 20s linear infinite;
+    animation: throw-ball 5s linear infinite;
 }
 
 #stick {
     right: 20rem;
-    bottom: 3rem;
+    bottom: 12rem;
     width: 2.5rem;
     height: 8rem;
     background-color: brown;
-    animation: hit-ball 20s linear infinite;
+    animation: hit-ball 5s linear infinite;
 }
 
 @keyframes throw-ball {
@@ -39,13 +39,20 @@
         left: 1rem + 5rem;
         top: calc(100% - (15rem - 2rem));
     }
+    64% {
+        transition: scale3d(1, 1, 1);
+    }
     65% {
-        left: calc(100% - (20rem + 1rem));
-        top: calc(100% - (3rem + 3rem));
+        left: calc(100% - (20rem + 2.5rem));
+        top: calc(100% - (20rem - 1rem));
+        transition: scale3d(-1.5, -1.2, 1.2);
+    }
+    66% {
+        transition: scale3d(1, 1, 1);
     }
     100% {
         left: 8rem;
-        top: 0;
+        top: calc(100% - 25rem);
     }
 }
 
@@ -54,10 +61,10 @@
         transform: rotate(0);
     }
     64% {
-        transform: rotate(-90deg);
+        transform: rotate(90deg);
     }
     67% {
-        transform: rotate(90deg);
+        transform: rotate(-90deg);
     }
     100% {
         transform: rotate(0deg);
