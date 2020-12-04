@@ -15,6 +15,7 @@
 }
 
 #ball {
+    z-index: 100;
     left: calc(1rem + 5rem);
     bottom: calc(15rem - 2rem);
     width: 2rem;
@@ -31,6 +32,7 @@
     height: 8rem;
     transform: rotate(-45deg);
     background-color: brown;
+    animation: hit-ball 5s linear infinite;
 }
 
 @keyframes throw-ball {
@@ -45,5 +47,17 @@
     100% {
         left: 8rem;
         top: 0;
+    }
+}
+
+@keyframes hit-ball {
+    64% {
+        transform: rotate(-45deg);
+    }
+    67% {
+        transform: rotate(45deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
