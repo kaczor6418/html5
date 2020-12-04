@@ -30,7 +30,6 @@
     bottom: 3rem;
     width: 2.5rem;
     height: 8rem;
-    transform: rotate(-45deg);
     background-color: brown;
     animation: hit-ball 5s linear infinite;
 }
@@ -51,6 +50,9 @@
 }
 
 @keyframes hit-ball {
+    62% {
+        transform: rotate(0);
+    }
     64% {
         transform: rotate(-45deg);
     }
