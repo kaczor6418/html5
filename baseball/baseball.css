@@ -22,7 +22,7 @@
     height: 2rem;
     border-radius: 50%;
     background-color: blue;
-    animation: throw-ball 5s linear infinite;
+    animation: throw-ball 3s linear infinite;
 }
 
 #stick {
@@ -31,7 +31,7 @@
     width: 2.5rem;
     height: 8rem;
     background-color: brown;
-    animation: hit-ball 5s linear infinite;
+    animation: hit-ball 3s linear infinite;
 }
 
 @keyframes throw-ball {
