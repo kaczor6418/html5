@@ -39,18 +39,18 @@
         left: 1rem + 5rem;
         top: calc(100% - (15rem - 2rem));
     }
-    64% {
+    45% {
         transition: scale3d(1, 1, 1);
     }
-    65% {
+    46% {
         left: calc(100% - (20rem + 3rem));
         top: calc(100% - (20rem - 1.5rem));
         transition: scale3d(-1.5, -1.2, 1.2);
     }
-    66% {
+    47% {
         transition: scale3d(1, 1, 1);
     }
-    80% {
+    75% {
         left: -2.5rem;
         top: calc(100% - 25rem);
     }
@@ -61,16 +61,16 @@
 }
 
 @keyframes hit-ball {
-    56% {
+    38% {
         transform: rotate(0);
     }
-    64% {
+    45% {
         transform: rotate(90deg);
     }
-    67% {
+    48% {
         transform: rotate(-90deg);
     }
-    80% {
+    70% {
         transform: rotate(0deg);
     }
 }
