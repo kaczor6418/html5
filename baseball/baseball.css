@@ -31,6 +31,7 @@
     width: 2.5rem;
     height: 8rem;
     background-color: brown;
+    transform-origin: bottom center;
     animation: hit-ball 3s linear infinite;
 }
 
