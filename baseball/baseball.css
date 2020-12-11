@@ -43,15 +43,19 @@
         transition: scale3d(1, 1, 1);
     }
     65% {
-        left: calc(100% - (20rem + 2.5rem));
-        top: calc(100% - (20rem - 1rem));
+        left: calc(100% - (20rem + 3rem));
+        top: calc(100% - (20rem - 1.5rem));
         transition: scale3d(-1.5, -1.2, 1.2);
     }
     66% {
         transition: scale3d(1, 1, 1);
     }
+    80% {
+        left: -2.5rem;
+        top: calc(100% - 25rem);
+    }
     100% {
-        left: 8rem;
+        left: -2.5rem;
         top: calc(100% - 25rem);
     }
 }
@@ -66,7 +70,7 @@
     67% {
         transform: rotate(-90deg);
     }
-    100% {
+    80% {
         transform: rotate(0deg);
     }
 }
