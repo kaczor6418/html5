@@ -5,6 +5,8 @@ export class CanvasService {
         this.canvasHeight = canvasHeight;
         this.canvas = document.createElement('canvas');
         this.context = canvas.getContext('2d');
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
     }
 
     drawRectangle = (x, y, width, height, color = 'black') => {
@@ -38,6 +40,10 @@ export class CanvasService {
             return void 0;
         }
         window.requestAnimationFrame(callback);
+    }
+
+    attachCanvas(element) {
+        element.appendChild(this.canvas);
     }
 
 }
