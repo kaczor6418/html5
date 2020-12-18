@@ -24,7 +24,7 @@ export class CanvasService {
     }
 
     removeCircle = (x, y, radius) => {
-        this.context.clearRect(x - radius, y - radius, radius*2, radius*2);
+        this.context.clearRect(x - radius, y - radius, radius * 2, radius * 2);
     }
 
     removeRectangle = (x, y, width, height) => {
@@ -42,7 +42,7 @@ export class CanvasService {
         window.requestAnimationFrame(callback);
     }
 
-    attachCanvas(element) {
+    attach(element) {
         element.appendChild(this.canvas);
     }
 

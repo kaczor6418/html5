@@ -1,10 +1,9 @@
+import { CanvasService } from './src/CanvasService.js';
 import { crateConfig, platformConfig, truckConfig } from './config.js';
 
-const baseXPosition = 100;
-const baseYPosition = 100;
 const mapWidth = 1000;
 const mapHeight = 1000;
 const speed = 5;
+const canvas = new CanvasService(mapWidth, mapHeight);
 
-const canvas = document.createElement('canvas');;
-const context = canvas.getContext('2d');
+canvas.attach(document.body);
