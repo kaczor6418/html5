@@ -1,5 +1,5 @@
 export class Truck {
-    static SPACE_BETWEEN_SEMITRAILER_AND_TRACTOR = 10;
+    static SPACE_TRUCK_AND_WHEELS = 5;
 
     constructor({ semitrailer, tractor, wheels } = {}, canvas) {
         this.semitrailer = semitrailer;
@@ -30,12 +30,17 @@ export class Truck {
     }
 
     drawTractor() {
-        const xPosition = Truck.SPACE_BETWEEN_SEMITRAILER_AND_TRACTOR + this.semitrailer.size.width + this.semitrailer.size.thickness;
+        const xPosition = this.semitrailer.size.width + this.semitrailer.size.thickness;
         this.canvas.drawRectangle(xPosition, this.semitrailer.position.y, this.tractor.size.width, this.tractor.size.height);
     }
 
     draWheels() {
-
+        const yPosition = this.semitrailer.position.y - Truck.SPACE_TRUCK_AND_WHEELS;
+        let xPosition = this.semitrailer.x;
+        for(let i = 0; i < this.wheels.count; i++) {
+            this.canvas.drawCircle(xPosition, yPosition, this.wheels.radius);
+            xPosition += this.wheels.radius + this.wheels.spaceBetweenWheels;
+        }
     }
 
 }
