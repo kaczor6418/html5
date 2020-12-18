@@ -1,4 +1,5 @@
 export class Truck {
+    static SPACE_BETWEEN_SEMITRAILER_AND_TRACTOR = 10;
 
     constructor({ semitrailer, tractor, wheels } = {}, canvas) {
         this.semitrailer = semitrailer;
@@ -29,7 +30,8 @@ export class Truck {
     }
 
     drawTractor() {
-
+        const xPosition = Truck.SPACE_BETWEEN_SEMITRAILER_AND_TRACTOR + this.semitrailer.size.width + this.semitrailer.size.thickness;
+        this.canvas.drawRectangle(xPosition, this.semitrailer.position.y, this.tractor.size.width, this.tractor.size.height);
     }
 
     draWheels() {
