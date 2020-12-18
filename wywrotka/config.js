@@ -1,24 +1,13 @@
 export const truckConfig = {
     semitrailer: {
-        floor: {
-            size: {
-                width: 0,
-                height: 0
-            },
-            position: {
-                x: 0,
-                y: 0
-            }
+        position: {
+            x: 0,
+            x: 0
         },
-        wall: {
-            size: {
-                width: 0,
-                height: 0
-            },
-            position: {
-                x: 0,
-                y: 0
-            }
+        size: {
+            width: 0,
+            height: 0,
+            thickness: 0
         }
     },
     tractor: {
