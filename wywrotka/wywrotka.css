@@ -48,6 +48,7 @@
     right: calc(100vw - var(--trolley-width) - var(--offset));
     width: 25rem;
     height: 15rem;
+    animation: drive-to-platform var(--animation-time) 0s linear infinite;
 }
 
 .cabin {
@@ -71,6 +72,7 @@
     width: var(--semitrailer-width);
     height: var(--semitrailer-height);
     transform-origin: bottom left;
+    animation: semitrailer-up-down var(--animation-time) 0s linear infinite;
 }
 
 .semitrailer__cargo {
@@ -79,6 +81,7 @@
     right: 3rem;
     width: var(--semitrailer-cargo-size);
     height: var(--semitrailer-cargo-size);
+    animation: cargo-down var(--animation-time) 0s linear infinite;
 }
 
 .semitrailer__wall {
@@ -115,4 +118,54 @@
     border-radius: 50%;
     width: var(--wheels-wheel-size);
     height: var(--wheels-wheel-size);
+}
+
+@keyframes drive-to-platform {
+    20% {
+        bottom: 2rem;
+        right: 2rem;
+    }
+    30% {
+        bottom: 29rem;
+        right: 2rem;
+    }
+    50% {
+        bottom: 29rem;
+        right: 55rem;
+    }
+    100% {
+        bottom: 29rem;
+        right: 55rem;
+    }
+
+}
+
+@keyframes semitrailer-up-down {
+    50% {
+        transform: rotate(0);
+    }
+    70% {
+        transform: rotate(-25deg);  
+    }
+    100% {
+        transform: rotate(-25deg)
+    }
+}
+
+@keyframes cargo-down {
+    55% {
+        transform: translateX(0) translateY(0) rotate(0);
+    }
+    65% {
+        transform: translateX(-10rem) translateY(0) rotate(0); 
+    }
+    70% {
+        transform: translateX(-15rem) translateY(0) rotate(-20deg);
+    }
+    76% {
+        transform: translateX(-17rem) translateY(3.6rem) rotate(-65deg);
+    }
+    100% {
+        transform: translateX(-17rem) translateY(3.6rem) rotate(-65deg);
+    }
 }
