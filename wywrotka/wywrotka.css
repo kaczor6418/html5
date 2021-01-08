@@ -33,3 +33,86 @@
 .semitrailer__floor {
     position: absolute;
 }
+
+.platform {
+    width: var(--platform-width);
+    height: var(--platform-height);
+    bottom: 30rem;
+    right: 80rem;
+
+    background-color: grey;
+}
+
+.trolley {
+    bottom: var(--offset);
+    right: calc(100vw - var(--trolley-width) - var(--offset));
+    width: 25rem;
+    height: 15rem;
+}
+
+.cabin {
+    background-color: red;
+    width: var(--cabin-width);
+    height: var(--cabin-height);
+    right: 0;
+    top: 0;
+}
+
+.cabin__window {
+    z-index: 100;
+    background-color: aqua;
+    width: var(--cabin-window-size);
+    height: var(--cabin-window-size);
+    right: 0;
+    top: 0;
+}
+
+.semitrailer {
+    width: var(--semitrailer-width);
+    height: var(--semitrailer-height);
+    transform-origin: bottom left;
+}
+
+.semitrailer__cargo {
+    background-color: magenta;
+    bottom: var(--semitrailer-floor-height);
+    right: 3rem;
+    width: var(--semitrailer-cargo-size);
+    height: var(--semitrailer-cargo-size);
+}
+
+.semitrailer__wall {
+    background-color: green;
+    right: 0;
+    top: 0;
+    width: var(--semitrailer-wall-width);
+    height: 100%;
+}
+
+.semitrailer__floor {
+    background-color: green;
+    height: var(--semitrailer-floor-height);
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+.wheels {
+    top: var(--cabin-height);
+    left: 0;
+    width: 100%;
+    height: var(--wheels-height);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.wheels__wheel {
+    background-color: blue;
+    margin-top: var(--space-between-semitrailer-and-wheels);
+    border-radius: 50%;
+    width: var(--wheels-wheel-size);
+    height: var(--wheels-wheel-size);
+}
