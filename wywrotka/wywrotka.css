@@ -1,0 +1,11 @@
+.platform,
+.trolley,
+.cabin,
+.semitrailer,
+.wheels,
+.cabin__window,
+.semitrailer__cargo,
+.semitrailer__wall,
+.semitrailer__floor {
+    position: absolute;
+}
