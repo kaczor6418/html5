@@ -1,3 +1,27 @@
+:root {
+    --offset: 2rem;
+    
+    --platform-width: 10rem;
+    --platform-height: 2rem;
+
+    --trolley-width: 25rem;
+    --trolley-height: 14rem;
+    --cabin-width: 8rem;
+    --cabin-height: 8rem;
+    --cabin-window-size: 4rem;
+    --semitrailer-width: calc(var(--trolley-width) - var(--cabin-width));
+    --semitrailer-height: var(--cabin-height);
+    --semitrailer-cargo-size: 5rem;
+    --semitrailer-wall-width: 2rem;
+    --semitrailer-floor-height: 2rem;
+    --space-between-semitrailer-and-wheels: 0.5rem;
+    --wheels-width: var(--semitrailer-width);
+    --wheels-height: calc(var(--trolley-height) - var(--cabin-height));
+    --wheels-wheel-size: calc(var(--trolley-height) - var(--cabin-height) - var(--space-between-semitrailer-and-wheels));
+
+    --animation-time: 15s;
+}
+
 .platform,
 .trolley,
 .cabin,
