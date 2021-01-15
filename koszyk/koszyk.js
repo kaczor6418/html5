@@ -1,6 +1,7 @@
 import products from './products.js';
 
 const shoppingList = document.querySelector('.shop-items__list');
+const counter = document.querySelector('.bracket__counter');
 
 products.forEach(({photoUrl, description}) => shoppingList.appendChild(createProductItem(photoUrl, description)));
 
@@ -20,7 +21,9 @@ function createProductItem(productPhotol, productDescription) {
 function createProductButton() {
     const button = document.createElement('button');
     button.textContent = 'Add';
-    button.addEventListener('click', () => (console.log('Run add animation')));
+    button.addEventListener('click', () => {
+        counter.textContent = (Number(counter.textContent) + 1).toString();
+    });
     return button;
 }
 
