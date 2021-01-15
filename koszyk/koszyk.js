@@ -9,16 +9,17 @@ function createProductItem(productPhotol, productDescription) {
     const photo = createProductPhoto(productPhotol);
     const description = createProductDescription(productDescription);
     const button = createProductButton();
-    productWrapper.appendChild(button);
-    productWrapper.appendChild(description);
     productWrapper.appendChild(photo);
+    productWrapper.appendChild(description);
+    productWrapper.appendChild(button);
+    productWrapper.className = 'list__item'
     return productWrapper;
 
 }
 
 function createProductButton() {
-    const button = document.createElement('butotn');
-    button.textContent = 'Add product';
+    const button = document.createElement('button');
+    button.textContent = 'Add';
     button.addEventListener('click', () => (console.log('Run add animation')));
     return button;
 }
@@ -33,10 +34,13 @@ function createProductPhoto(url) {
     const photoWrapper = document.createElement('picture');
     const source = document.createElement('source');
     const fallback = document.createElement('img');
+    source.className = 'item__photo-source';
+    fallback.className = 'item__photo-img';
     source.srcset = url;
     fallback.src = url;
     fallback.alt = 'Product photo';
-    photoWrapper.appendChild(fallback);
     photoWrapper.appendChild(source);
+    photoWrapper.appendChild(fallback);
+    photoWrapper.className = 'item__photo'
     return photoWrapper;
 }

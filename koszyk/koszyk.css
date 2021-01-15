@@ -3,8 +3,29 @@ body {
     padding: 0;
 }
 
+button {
+    cursor: pointer;
+}
+
 *,
 ::after,
 ::before {
     box-sizing: border-box;
+}
+
+.shop-items__list {
+    list-style: none;
+    max-width: 50%;
+}
+
+.list__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item__photo,
+.item__photo-source,
+.item__photo-img {
+    max-width: 5rem;
 }
