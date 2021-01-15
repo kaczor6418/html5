@@ -21,6 +21,20 @@ button {
     height: 10rem;
 }
 
+.bracket__wrapper {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    background: brown;
+    clip-path: polygon(50% 70%, 80% 60%, 100% 37%, 100% 100%, 0 100%, 0 37%, 20% 60%);
+}
+
+.bracket__counter {
+    position: relative;
+    bottom: -0.2rem;
+    left: -0.5rem;
+}
+
 .shop-items__list {
     list-style: none;
     max-width: 50%;
