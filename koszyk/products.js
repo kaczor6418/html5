@@ -8,7 +8,7 @@ export default [
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend lacus viverra, tincidunt purus vestibulum, semper ante. Mauris mollis lacus.'
     },
     {
-        photoUrl: 'https://nonsa.pl/images/8/82/Ziemniak-kanoniczny.png',
+        photoUrl: 'https://api.time.com/wp-content/uploads/2020/04/Boss-Turns-Into-Potato.jpg',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend lacus viverra, tincidunt purus vestibulum, semper ante. Mauris mollis lacus.'
     },
     {
