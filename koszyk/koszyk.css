@@ -58,6 +58,14 @@ button {
     animation: move-to-bracket 2s linear forwards, bounce 2s 2s linear infinite;
 }
 
+@keyframes move-to-bracket {
+    to {
+        left: calc(100vw - 11rem);
+        top: 10.5rem;
+        transform: scale(0.5);
+    }
+}
+
 @keyframes bounce {
     0%   { 
         transform: translateY(0) scale(0.5); 
