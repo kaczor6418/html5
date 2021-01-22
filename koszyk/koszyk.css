@@ -55,7 +55,7 @@ button {
 
 .bracket__product {
     mix-blend-mode: multiply;
-    animation: move-to-bracket 2s linear forwards, bounce 2s 2s linear infinite;
+    animation: move-to-bracket 2s linear forwards, bounce 2s 3 2s linear;
 }
 
 @keyframes move-to-bracket {
