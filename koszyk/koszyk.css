@@ -70,11 +70,8 @@ button {
     0%   { 
         transform: translateY(0) scale(0.5); 
     }
-    30%  { 
-        transform: translateY(-100px) scale(0.5); 
-    }
     50%  { 
-        transform: translateY(0) scale(0.5); 
+        transform: translateY(-100px) scale(0.5); 
     }
     100% { 
         transform: translateY(0) scale(0.5); 
