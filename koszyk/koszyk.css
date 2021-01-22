@@ -15,10 +15,11 @@ button {
 
 .bracket {
     position: absolute;
-    right: 5rem;
+    left: calc(100vw - 15rem);
     top: 5rem;
     width: 10rem;
     height: 10rem;
+    z-index: 100;
 }
 
 .bracket__wrapper {
@@ -50,4 +51,24 @@ button {
 .item__photo-source,
 .item__photo-img {
     max-width: 5rem;
+}
+
+.bracket__product {
+    mix-blend-mode: multiply;
+    animation: move-to-bracket 2s linear forwards, bounce 2s 2s linear infinite;
+}
+
+@keyframes bounce {
+    0%   { 
+        transform: translateY(0) scale(0.5); 
+    }
+    30%  { 
+        transform: translateY(-100px) scale(0.5); 
+    }
+    50%  { 
+        transform: translateY(0) scale(0.5); 
+    }
+    100% { 
+        transform: translateY(0) scale(0.5); 
+    }
 }
