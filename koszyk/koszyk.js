@@ -28,6 +28,7 @@ function createProductButton(photo, photoCopy) {
         photoCopy.style.top = `${photo.offsetTop}px`;
         photoCopy.style.left = `${photo.offsetLeft}px`;
         document.body.appendChild(photoCopy);
+        window.setTimeout(() => document.body.removeChild(photoCopy), 8000);
     });
     return button;
 }
