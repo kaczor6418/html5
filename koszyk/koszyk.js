@@ -9,7 +9,7 @@ function createProductItem(productPhotol, productDescription) {
     const productWrapper = document.createElement('li');
     const photo = createProductPhoto(productPhotol);
     const description = createProductDescription(productDescription);
-    const button = createProductButton();
+    const button = createProductButton(photo, createProductPhoto(productPhotol));
     productWrapper.appendChild(photo);
     productWrapper.appendChild(description);
     productWrapper.appendChild(button);
@@ -18,11 +18,16 @@ function createProductItem(productPhotol, productDescription) {
 
 }
 
-function createProductButton() {
+function createProductButton(photo, photoCopy) {
     const button = document.createElement('button');
     button.textContent = 'Add';
     button.addEventListener('click', () => {
         counter.textContent = (Number(counter.textContent) + 1).toString();
+        photoCopy.classList.add('bracket__product');
+        photoCopy.style.position = 'absolute';
+        photoCopy.style.top = `${photo.offsetTop}px`;
+        photoCopy.style.left = `${photo.offsetLeft}px`;
+        document.body.appendChild(photoCopy);
     });
     return button;
 }
