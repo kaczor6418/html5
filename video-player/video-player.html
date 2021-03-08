@@ -46,19 +46,19 @@
         </section>
         <section class="movie-form">
             <h2>Add movie to playlist</h2>
-            <form>
+            <div class="add-movie__form">
                 <div class="form__item movie-title">
                     <label for="movie-title">Enter movie title: </label>
-                    <input type="text" name="movie-title" required>
+                    <input type="text" name="movie-title" id="movie-title" value="Volkswagen GTI Review" required>
                 </div>
                 <div class="form__item movie-url">
                     <label for="movie-url">Enter movie url: </label>
-                    <input type="text" name="movie-url" required>
+                    <input type="text" name="movie-url" id="movie-url" value="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" required>
                 </div>
                 <div class="form__item add-movie">
-                    <input class="add-movie__button" type="submit" value="Add">
+                    <button class="add-movie__button">Add</button>
                 </div>
-            </form>
+            </div>
         </section>
         <section class="video-player">
             <video autoplay controls width="720" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></video>

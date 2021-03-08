@@ -1,7 +1,15 @@
 (function() {
     const videoPlayer = document.querySelector('video');
     const playlistWrapper = document.querySelector('.movies-wrapper');
+    const addMovieButton = document.querySelector('.add-movie__button');
+    const newMovieTitle = document.querySelector('#movie-title');
+    const newMovieUrl = document.querySelector('#movie-url');
     let movies = Array.from(document.querySelectorAll('.movie'));
+
+    addMovieButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        createNewMovieElement();
+    })
 
     const swapArrayElements = (arr, indexA, indexB) => [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
 
@@ -11,8 +19,6 @@
             return void 0;
         }
         let newIndex = oldIndex - 1;
-        // movie.setAttribute('data-index', newIndex.toString());
-        // movies[oldIndex + 1].setAttribute('data-index', oldIndex.toString());
         swapArrayElements(movies, oldIndex, newIndex);
     }
 
@@ -22,8 +28,6 @@
             return void 0;
         }
         let newIndex = oldIndex + 1;
-        // movie.setAttribute('data-index', newIndex);
-        // movies[newIndex].setAttribute('data-index', oldIndex.toString());
         swapArrayElements(movies, oldIndex, newIndex);
     }
 
@@ -37,7 +41,7 @@
 
     const setPlayVideoListener = (movie) => {
         const movieLink = movie.querySelector('.movie__link');
-        addEventListener('click', () => {
+        movieLink.addEventListener('click', () => {
             videoPlayer.src = movieLink.getAttribute('data-video');
         });
     }
@@ -54,14 +58,46 @@
         renderList();
     });
 
+    const initializeLitenersForMovieItem = (movieItem, idx) => {
+        movieItem.setAttribute('data-index', idx.toString());
+        setPlayVideoListener(movieItem);
+        setMoveUpListener(movieItem);
+        setMoveDowListener(movieItem);
+        setRemoveListener(movieItem);
+        playlistWrapper.appendChild(movieItem);
+    }
+
+    const createNewMovieElement = () => {
+        const movieItem = document.createElement('li');
+        const title = document.createElement('span');
+        title.setAttribute('data-video', newMovieUrl.value);
+        title.textContent = newMovieTitle.value;
+        title.className = 'movie__link';
+        const up = document.createElement('button');
+        up.textContent = '↑';
+        up.className = 'movie__up-button';
+        const down = document.createElement('button');
+        down.textContent = '↓';
+        down.className = 'movie__down-button';
+        const remove = document.createElement('button');
+        remove.textContent = 'Remove';
+        remove.className = 'movie__remove-button';
+        movieItem.appendChild(title);
+        movieItem.appendChild(up);
+        movieItem.appendChild(down);
+        movieItem.appendChild(remove);
+        movies.push(movieItem);
+        initializeLitenersForMovieItem(movieItem, movies.length - 1);
+        playlistWrapper.appendChild(movieItem);
+        newMovieUrl.value = '';
+        newMovieTitle.value = '';
+
+    }
+
     const renderList = () => {
         playlistWrapper.innerHTML = '';
-        movies.forEach((movieItem) => {
-            setPlayVideoListener(movieItem);
-            setMoveUpListener(movieItem);
-            setMoveDowListener(movieItem);
-            setRemoveListener(movieItem);
-            playlistWrapper.appendChild(movieItem);
+        movies.forEach((movieItem, idx) => {
+            initializeLitenersForMovieItem(movieItem, idx);
         });
     }
 
