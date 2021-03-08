@@ -8,14 +8,62 @@
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
 </head>
 <body>
-    <ol>
-        <li data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Big Buck Bunny</li>
-        <li data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">Elephant Dream</li>
-        <li data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4">For Bigger Blazes</li>
-        <li data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4">For Bigger Escape</li>
-        <li data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4">For Bigger Fun</li>
-    </ol>
-    <video autoplay controls width="720" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></video>
+    <main>
+        <section class="movie-list">
+            <h2>Movie playlist</h2>
+            <ol>
+                <li>
+                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Big Buck Bunny</span>
+                    <button class="up-arrow">↑</button>
+                    <button class="down-arrow">↓</button>
+                    <button>Rmove</button>
+                </li>
+                <li>
+                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">Elephant Dream</span>
+                    <button class="up-arrow">↑</button>
+                    <button class="down-arrow">↓</button>
+                    <button>Rmove</button>
+                </li>
+                <li>
+                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4">For Bigger Blazes</span>
+                    <button class="up-arrow">↑</button>
+                    <button class="down-arrow">↓</button>
+                    <button>Rmove</button>
+                </li>
+                <li>
+                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4">For Bigger Escape</span>
+                    <button class="up-arrow">↑</button>
+                    <button class="down-arrow">↓</button>
+                    <button>Rmove</button>
+                </li>
+                <li>
+                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4">For Bigger Fun</span>
+                    <button class="up-arrow">↑</button>
+                    <button class="down-arrow">↓</button>
+                    <button>Rmove</button>
+                </li>
+            </ol>
+        </section>
+        <section class="movie-form">
+            <h2>Add movie to playlist</h2>
+            <form>
+                <div class="movie-title">
+                    <label for="movie-title">Enter movie title: </label>
+                    <input type="text" name="movie-title" required>
+                </div>
+                <div class="movie-url">
+                    <label for="movie-url">Enter movie url: </label>
+                    <input type="text" name="movie-url" required>
+                </div>
+                <div class="add-movie">
+                    <input type="submit" value="Add">
+                </div>
+            </form>
+        </section>
+        <section class="video-player">
+            <video autoplay controls width="720" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></video>
+        </section>
+    </main>
     <script src="index.js"></script>
 </body>
 </html>
