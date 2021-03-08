@@ -12,51 +12,51 @@
         <section class="movie-list">
             <h2>Movie playlist</h2>
             <ol>
-                <li>
-                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Big Buck Bunny</span>
-                    <button class="up-arrow">↑</button>
-                    <button class="down-arrow">↓</button>
-                    <button>Rmove</button>
+                <li class="movie">
+                    <span class="movie__link" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Big Buck Bunny</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
                 </li>
-                <li>
-                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">Elephant Dream</span>
-                    <button class="up-arrow">↑</button>
-                    <button class="down-arrow">↓</button>
-                    <button>Rmove</button>
+                <li class="movie">
+                    <span class="movie__link" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">Elephant Dream</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
                 </li>
-                <li>
-                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4">For Bigger Blazes</span>
-                    <button class="up-arrow">↑</button>
-                    <button class="down-arrow">↓</button>
-                    <button>Rmove</button>
+                <li class="movie">
+                    <span class="movie__link" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4">For Bigger Blazes</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
                 </li>
-                <li>
-                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4">For Bigger Escape</span>
-                    <button class="up-arrow">↑</button>
-                    <button class="down-arrow">↓</button>
-                    <button>Rmove</button>
+                <li class="movie">
+                    <span class="movie__link" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4">For Bigger Escape</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
                 </li>
-                <li>
-                    <span data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4">For Bigger Fun</span>
-                    <button class="up-arrow">↑</button>
-                    <button class="down-arrow">↓</button>
-                    <button>Rmove</button>
+                <li class="movie">
+                    <span class="movie__link" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4">For Bigger Fun</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
                 </li>
             </ol>
         </section>
         <section class="movie-form">
             <h2>Add movie to playlist</h2>
             <form>
-                <div class="movie-title">
+                <div class="form__item movie-title">
                     <label for="movie-title">Enter movie title: </label>
                     <input type="text" name="movie-title" required>
                 </div>
-                <div class="movie-url">
+                <div class="form__item movie-url">
                     <label for="movie-url">Enter movie url: </label>
                     <input type="text" name="movie-url" required>
                 </div>
-                <div class="add-movie">
-                    <input type="submit" value="Add">
+                <div class="form__item add-movie">
+                    <input class="add-movie__button" type="submit" value="Add">
                 </div>
             </form>
         </section>

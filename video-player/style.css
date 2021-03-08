@@ -1,5 +1,20 @@
-li {
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.movie-list, .movie-form, .video-player {
+    margin: 40px 0;
+}
+
+.movie, .form__item {
+    padding: 8px 0;
+}
+
+.movie__link, .movie__up-button, .movie__down-button, .movie__remove-button, .add-movie__button {
     cursor: pointer;
+}
+
+.movie__link {
     color: blue;
     text-decoration: underline;
 }
