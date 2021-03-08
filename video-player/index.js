@@ -67,6 +67,7 @@
 
     const createNewMovieElement = () => {
         const movieItem = document.createElement('li');
+        movieItem.className = 'movie';
         const title = document.createElement('span');
         title.setAttribute('data-video', newMovieUrl.value);
         title.textContent = newMovieTitle.value;
