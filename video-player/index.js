@@ -58,13 +58,11 @@
         renderList();
     });
 
-    const initializeLitenersForMovieItem = (movieItem, idx) => {
-        movieItem.setAttribute('data-index', idx.toString());
+    const initializeLitenersForMovieItem = (movieItem) => {
         setPlayVideoListener(movieItem);
         setMoveUpListener(movieItem);
         setMoveDowListener(movieItem);
         setRemoveListener(movieItem);
-        playlistWrapper.appendChild(movieItem);
     }
 
     const createNewMovieElement = () => {
@@ -87,7 +85,8 @@
         movieItem.appendChild(down);
         movieItem.appendChild(remove);
         movies.push(movieItem);
-        initializeLitenersForMovieItem(movieItem, movies.length - 1);
+        initializeLitenersForMovieItem(movieItem);
+        movieItem.setAttribute('data-index', (movies.length - 1).toString());
         playlistWrapper.appendChild(movieItem);
         newMovieUrl.value = '';
         newMovieTitle.value = '';
@@ -97,9 +96,12 @@
     const renderList = () => {
         playlistWrapper.innerHTML = '';
         movies.forEach((movieItem, idx) => {
-            initializeLitenersForMovieItem(movieItem, idx);
+            movieItem.setAttribute('data-index', idx.toString());
+            playlistWrapper.appendChild(movieItem);
         });
     }
+
+    movies.forEach(movie => initializeLitenersForMovieItem(movie));
 
     renderList();
 })();
