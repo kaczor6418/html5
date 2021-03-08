@@ -1,10 +1,12 @@
 (function() {
-    const videoSource = document.querySelector('video');
-    const videosList = document.querySelectorAll('li');
+    const videoPlayer = document.querySelector('video');
+    const movies = document.querySelectorAll('.movie');
 
-    videosList.forEach(element => {
-        element.addEventListener('click', () => {
-            videoSource.src = element.getAttribute('data-video');
-        });
+    const playVideoAfterClick = (movie) => movie.addEventListener('click', () => {
+        videoPlayer.src = movie.getAttribute('data-video');
+    });
+
+    movies.forEach(movieItem => {
+        playVideoAfterClick(movieItem.querySelector('.movie__link'));
     });
 })();
