@@ -10,11 +10,12 @@
     padding: 8px 0;
 }
 
-.movie__link, .movie__up-button, .movie__down-button, .movie__remove-button, .add-movie__button {
+.btn {
     cursor: pointer;
 }
 
 .movie__link {
+    cursor: pointer;
     color: blue;
     text-decoration: underline;
 }

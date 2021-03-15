@@ -79,7 +79,7 @@
         down.textContent = '↓';
         down.className = 'movie__down-button';
         const remove = document.createElement('button');
-        remove.textContent = 'Remove';
+        remove.textContent = '✕';
         remove.className = 'movie__remove-button';
         movieItem.appendChild(title);
         movieItem.appendChild(up);

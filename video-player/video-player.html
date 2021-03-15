@@ -11,41 +11,47 @@
     <main>
         <section class="movie-list">
             <h2>Movie playlist</h2>
+            <div>
+                <h3>Group actions</h3>
+                <button class="btn" id="move-up-selected">[↑] Move UP selected elements</button>
+                <button class="btn" id="move-down-selected">[↓] Move DOWN selected elements</button>
+                <button class="btn" id="remove-selected">[✕] Remove selected elements</button>
+            </div>
             <ol class="movies-wrapper">
                 <li class="movie">
                     <input class="checkbox" type="checkbox" name="Big Buck Bunny">
                     <label class="movie__link" for="Big Buck Bunny" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">Big Buck Bunny</label>
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Rmove</button>
+                    <button class="btn movie__up-button">↑</button>
+                    <button class="btn movie__down-button">↓</button>
+                    <button class="btn movie__remove-button">✕</button>
                 </li>
                 <li class="movie">
                     <input class="checkbox" type="checkbox" name="Elephant Dream">
                     <label class="movie__link" for="Elephant Dream" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">Elephant Dream</label>
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Rmove</button>
+                    <button class="btn movie__up-button">↑</button>
+                    <button class="btn movie__down-button">↓</button>
+                    <button class="btn movie__remove-button">✕</button>
                 </li>
                 <li class="movie">
                     <input class="checkbox" type="checkbox" name="For Bigger Blazes">
                     <label class="movie__link" for="For Bigger Blazes" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4">For Bigger Blazes</label>
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Rmove</button>
+                    <button class="btn movie__up-button">↑</button>
+                    <button class="btn movie__down-button">↓</button>
+                    <button class="btn movie__remove-button">✕</button>
                 </li>
                 <li class="movie">
                     <input class="checkbox" type="checkbox" name="For Bigger Escape">
                     <label class="movie__link" for="For Bigger Escape" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4">For Bigger Escape</label>
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Rmove</button>
+                    <button class="btn movie__up-button">↑</button>
+                    <button class="btn movie__down-button">↓</button>
+                    <button class="btn movie__remove-button">✕</button>
                 </li>
                 <li class="movie">
                     <input class="checkbox" type="checkbox" name="For Bigger Fun">
                     <label class="movie__link" for="For Bigger Fun" data-video="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4">For Bigger Fun</label>
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Rmove</button>
+                    <button class="btn movie__up-button">↑</button>
+                    <button class="btn movie__down-button">↓</button>
+                    <button class="btn movie__remove-button">✕</button>
                 </li>
             </ol>
         </section>
@@ -61,7 +67,7 @@
                     <input type="text" name="movie-url" id="movie-url" value="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" required>
                 </div>
                 <div class="form__item add-movie">
-                    <button class="add-movie__button">Add</button>
+                    <button class="btn add-movie__button">Add</button>
                 </div>
             </form>
         </section>
