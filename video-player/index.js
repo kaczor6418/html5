@@ -5,6 +5,7 @@
     const newMovieTitle = document.querySelector('#movie-title');
     const newMovieUrl = document.querySelector('#movie-url');
     let movies = Array.from(document.querySelectorAll('.movie'));
+    const selectedVideos = new Map();
 
     addMovieButton.addEventListener('click', (e) => {
         e.preventDefault();
@@ -39,6 +40,19 @@
         }
     }
 
+    const setAddToSelectedListener = (movie) => {
+        const movieCheckbox = movie.querySelector('.checkbox');
+        const itemName = movieCheckbox.name;
+        movieCheckbox.addEventListener('change', ({srcElement: checkbox}) => {
+            if(checkbox.getAttribute('checked') == null) {
+                checkbox.setAttribute('checked', '');
+                selectedVideos.set(itemName, movie);
+            } else {
+                checkbox.removeAttribute('checked');
+                selectedVideos.delete(itemName);
+            }
+        });
+    }
     const setPlayVideoListener = (movie) => {
         const movieLink = movie.querySelector('.movie__link');
         movieLink.addEventListener('click', () => {
@@ -59,6 +73,7 @@
     });
 
     const initializeLitenersForMovieItem = (movieItem) => {
+        setAddToSelectedListener(movieItem);
         setPlayVideoListener(movieItem);
         setMoveUpListener(movieItem);
         setMoveDowListener(movieItem);
