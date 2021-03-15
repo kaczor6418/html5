@@ -4,13 +4,29 @@
     const addMovieButton = document.querySelector('.add-movie__button');
     const newMovieTitle = document.querySelector('#movie-title');
     const newMovieUrl = document.querySelector('#movie-url');
+    const moveGroupUpButton = document.querySelector('#move-up-selected');
+    const moveGroupDownButton = document.querySelector('#move-down-selected');
+    const moveGroupRemoveButton = document.querySelector('#remove-selected');
     let movies = Array.from(document.querySelectorAll('.movie'));
     const selectedVideos = new Map();
 
     addMovieButton.addEventListener('click', (e) => {
         e.preventDefault();
         createNewMovieElement();
-    })
+    });
+    moveGroupUpButton.addEventListener('click', () => {
+
+    });
+    moveGroupDownButton.addEventListener('click', () => {
+        
+    });
+    moveGroupRemoveButton.addEventListener('click', () => {
+        for(const video of selectedVideos.values()) {
+            const index = movies.findIndex(movie => movie === video);
+            movies.splice(index, 1);
+        }
+        renderList();
+    });
 
     const swapArrayElements = (arr, indexA, indexB) => [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
 
@@ -34,7 +50,9 @@
 
     const remove = (movie) =>{
         const index = movie.getAttribute('data-index'); 
+        const movieTitle = movie.querySelector('.checkbox').name;
         movies.splice(index, 1);
+        selectedVideos.delete(movieTitle);
         for (let i = index; i < movies.length; i++) {
             movies[i].setAttribute('data-index', i.toString());
         }
