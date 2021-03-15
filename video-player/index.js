@@ -9,6 +9,7 @@
     const moveGroupRemoveButton = document.querySelector('#remove-selected');
     let movies = Array.from(document.querySelectorAll('.movie'));
     const selectedVideos = new Map();
+    const queeToPlay = movies.map(movie => movie.querySelector('.movie_link').getAttribute('data-video'));
 
     addMovieButton.addEventListener('click', (e) => {
         e.preventDefault();
