@@ -96,7 +96,7 @@ const setDragEventsListeners = (movie) => {
     });
     movie.addEventListener('dragenter', (e) => {
         e.dataTransfer.setData('text', movie.getAttribute('data-index'));
-        targetDropIndex = Number(movie.getAttribute('data-index')) + 1;
+        targetDropIndex = Number(movie.getAttribute('data-index'));
     });
 }
 const setPlayVideoListener = (movie) => {
