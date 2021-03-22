@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+.movie {
+    cursor: grab;
+}
+
 .movie-list, .movie-form, .video-player {
     margin: 40px 0;
 }
