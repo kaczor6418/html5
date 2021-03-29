@@ -86,15 +86,6 @@ const unSelectSingleMovie = (checkbox) => {
     selectedVideos.delete(checkbox.name);
 }
 
-const toggleSingleMovieSelection = (movie, checkbox) {
-    const currentSelection = !!(checkbox.getAttribute('checked'));
-    if(currentSelection) {
-        unSelectSingleMovie(checkbox);
-    } else {
-        selectSingleMovie(movie, checkbox);
-    }
-}
-
 const selectUnSelectSingleMovie = (movie, checkbox) => {
     if(checkbox.getAttribute('checked') == null) {
         selectSingleMovie(movie, checkbox);
@@ -103,6 +94,8 @@ const selectUnSelectSingleMovie = (movie, checkbox) => {
         unSelectSingleMovie(checkbox);
         if(selectedVideos.size === 0) {
             shiftSelectCenterMovie = null;
+        } else {
+            shiftSelectCenterMovie = Array.from(selectedVideos.values())[0];
         }
     }
 }
@@ -115,10 +108,12 @@ const selectUnSelectGroup = (targetIndex) => {
     for (const singleMovie of movies) {
         const movieCheckbox = singleMovie.querySelector('.checkbox');
         const srcIndex = Number(singleMovie.getAttribute('data-index'));
-        if (srcIndex === groupCenterIndex) {
+        if (targetIndex > groupCenterIndex && srcIndex >= groupCenterIndex && srcIndex <= targetIndex) {
+            selectSingleMovie(singleMovie, movieCheckbox);
+        } else if(targetIndex < groupCenterIndex && srcIndex <= groupCenterIndex && (srcIndex >= targetIndex)) {
             selectSingleMovie(singleMovie, movieCheckbox);
         } else {
-            toggleSingleMovieSelection(singleMovie, movieCheckbox);
+            unSelectSingleMovie(movieCheckbox);
         }
     }
 }
