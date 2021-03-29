@@ -32,6 +32,7 @@ removeSelectedButton.addEventListener('click', () => {
         movies.splice(index, 1);
     }
     selectedVideos.clear();
+    shiftSelectCenterMovie = null;
     renderList();
 });
 
@@ -75,13 +76,50 @@ const remove = (movie) =>{
     }
 }
 
+const selectSingleMovie = (movie, checkbox) => {
+    checkbox.setAttribute('checked', '');
+    selectedVideos.set(checkbox.name, movie);
+}
+
+const unSelectSingleMovie = (checkbox) => {
+    checkbox.removeAttribute('checked');
+    selectedVideos.delete(checkbox.name);
+}
+
+const toggleSingleMovieSelection = (movie, checkbox) {
+    const currentSelection = !!(checkbox.getAttribute('checked'));
+    if(currentSelection) {
+        unSelectSingleMovie(checkbox);
+    } else {
+        selectSingleMovie(movie, checkbox);
+    }
+}
+
 const selectUnSelectSingleMovie = (movie, checkbox) => {
     if(checkbox.getAttribute('checked') == null) {
-        checkbox.setAttribute('checked', '');
-        selectedVideos.set(checkbox.name, movie);
+        selectSingleMovie(movie, checkbox);
+        shiftSelectCenterMovie = movie;
     } else {
-        checkbox.removeAttribute('checked');
-        selectedVideos.delete(checkbox.name);
+        unSelectSingleMovie(checkbox);
+        if(selectedVideos.size === 0) {
+            shiftSelectCenterMovie = null;
+        }
+    }
+}
+
+const selectUnSelectGroup = (targetIndex) => {
+    if(shiftSelectCenterMovie == null) {
+        return void 0;
+    }
+    const groupCenterIndex = Number(shiftSelectCenterMovie.getAttribute('data-index'));
+    for (const singleMovie of movies) {
+        const movieCheckbox = singleMovie.querySelector('.checkbox');
+        const srcIndex = Number(singleMovie.getAttribute('data-index'));
+        if (srcIndex === groupCenterIndex) {
+            selectSingleMovie(singleMovie, movieCheckbox);
+        } else {
+            toggleSingleMovieSelection(singleMovie, movieCheckbox);
+        }
     }
 }
 
@@ -93,6 +131,7 @@ const setCtrlAndShiftClickListeners = (movie) => {
         } else if(ctrlKey) {
             selectUnSelectSingleMovie(movie, checkbox);
         } else if (shiftKey) {
+            selectUnSelectGroup(Number(movie.getAttribute('data-index')));
         }
     })
 }
