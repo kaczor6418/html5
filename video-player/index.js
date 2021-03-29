@@ -4,11 +4,11 @@ const addMovieButton = document.querySelector('.add-movie__button');
 const newMovieTitle = document.querySelector('#movie-title');
 const newMovieUrl = document.querySelector('#movie-url');
 const removeSelectedButton = document.querySelector('#remove-selected');
-const playSelectedButton = document.querySelector('#play-selected');
 const selectedVideos = new Map();
 let movies = Array.from(document.querySelectorAll('.movie'));
 const queeToPlay = movies.map(movie => movie.querySelector('.movie__link').getAttribute('data-video'));
 
+let shiftSelectCenterMovie = null;
 let targetDropIndex = 0;
 
 playlistWrapper.addEventListener('drop', (e) => {
@@ -31,6 +31,7 @@ removeSelectedButton.addEventListener('click', () => {
         const index = movies.findIndex(movie => movie === video);
         movies.splice(index, 1);
     }
+    selectedVideos.clear();
     renderList();
 });
 
@@ -74,23 +75,39 @@ const remove = (movie) =>{
     }
 }
 
+const selectUnSelectSingleMovie = (movie, checkbox) => {
+    if(checkbox.getAttribute('checked') == null) {
+        checkbox.setAttribute('checked', '');
+        selectedVideos.set(checkbox.name, movie);
+    } else {
+        checkbox.removeAttribute('checked');
+        selectedVideos.delete(checkbox.name);
+    }
+}
+
+const setCtrlAndShiftClickListeners = (movie) => {
+    const checkbox = movie.querySelector('.checkbox');
+    movie.addEventListener('click', ({ctrlKey, shiftKey}) => {
+        if(ctrlKey && shiftKey) {
+            return void 0;
+        } else if(ctrlKey) {
+            selectUnSelectSingleMovie(movie, checkbox);
+        } else if (shiftKey) {
+        }
+    })
+}
+
 const setAddToSelectedListener = (movie) => {
     const movieCheckbox = movie.querySelector('.checkbox');
-    const itemName = movieCheckbox.name;
     movieCheckbox.addEventListener('change', ({srcElement: checkbox}) => {
-        if(checkbox.getAttribute('checked') == null) {
-            checkbox.setAttribute('checked', '');
-            selectedVideos.set(itemName, movie);
-        } else {
-            checkbox.removeAttribute('checked');
-            selectedVideos.delete(itemName);
-        }
+        selectUnSelectSingleMovie(movie, checkbox);
     });
 }
 const setDragEventsListeners = (movie) => {
     movie.addEventListener('dragstart', (e) => {
         if(selectedVideos.size === 0) {
             selectedVideos.set(movie.querySelector('.checkbox').name, movie);
+            movie.querySelector('.checkbox').setAttribute('checked', '');
         }
         e.dataTransfer.setData('text', movie.getAttribute('data-index'));
     });
@@ -119,6 +136,7 @@ const setRemoveListener = (movie) => movie.querySelector('.movie__remove-button'
 });
 
 const initializeLitenersForMovieItem = (movieItem) => {
+    setCtrlAndShiftClickListeners(movieItem);
     setDragEventsListeners(movieItem);
     setAddToSelectedListener(movieItem);
     setPlayVideoListener(movieItem);
