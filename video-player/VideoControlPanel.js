@@ -2,22 +2,22 @@ const template = `
 <section>
     <h3>Sound settings</h3>
     <div class="volume-level__modify">
-        <input />
-        <label for="sound-modify" >Modify</label>
+        <input type="range" min="0" max="100" value="50" step="1" id="sound-modify" name="sound-modify"/>
+        <label for="sound-modify">Modify</label>
     </div>
     <div class="volume-level__view">
-        <input />
-        <label for="sound-view" >View</label>
+        <input type="range" min="0" max="100" value="50" step="1" id="sound-view" name="sound-view" disabled/>
+        <label for="sound-view">View</label>
     </div>
 </section>
 <section>
     <h3>Time settings</h3>
     <div class="time-point__modify">
-        <input />
+        <input type="range" min="0" max="100" value="50" step="1" id="time-modify" name="time-modify"/>
         <label for="time-modify" >Modify</label>
     </div>
     <div class="time-point__view" >
-        <input />
+        <input type="range" min="0" max="100" value="50" step="1" id="time-vie" name="time-vie" disabled/>
         <label for="time-view">View</label>
     </div>
 </section>
