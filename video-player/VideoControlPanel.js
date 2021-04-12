@@ -2,22 +2,22 @@ const template = `
 <section>
     <h3>Sound settings</h3>
     <div class="volume-level__modify">
-        <input type="range" min="0" max="1" value="0" step="0.1" id="sound-modify" name="sound-modify"/>
+        <input type="range" min="0" max="1" value="0" step="0.01" id="sound-modify" name="sound-modify"/>
         <label for="sound-modify">Modify</label>
     </div>
     <div class="volume-level__view">
-        <input type="range" min="0" max="1" value="0" step="0.1" id="sound-view" name="sound-view" disabled/>
+        <input type="range" min="0" max="1" value="0" step="0.01" id="sound-view" name="sound-view" disabled/>
         <label for="sound-view">View</label>
     </div>
 </section>
 <section>
     <h3>Time settings</h3>
     <div class="time-point__modify">
-        <input type="range" min="0" max="1" value="0" step="0.1" id="time-modify" name="time-modify"/>
+        <input type="range" min="0" max="1" value="0" step="0.01" id="time-modify" name="time-modify"/>
         <label for="time-modify" >Modify</label>
     </div>
     <div class="time-point__view" >
-        <input type="range" min="0" max="1" value="0" step="0.1" id="time-view" name="time-view" disabled/>
+        <input type="range" min="0" max="1" value="0" step="0.01" id="time-view" name="time-view" disabled/>
         <label for="time-view">View</label>
     </div>
 </section>
@@ -36,6 +36,8 @@ export class VideoControlPanel extends HTMLElement {
         this.injectStyles(styles);
         this.getElementsReference();
         this.videoPlayer = player;
+        this.timeSliderChange = false;
+        this.videoTimeLineChange = false;
         this.setUpSynchronization(this.videoPlayer.volume, this.videoPlayer.currentTime);
         this.setUpListeners();
     }
@@ -54,9 +56,18 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     setUpListeners() {
-        this.soundModify.addEventListener('input', e => this.currentValuesProxy.sound = this.soundModify.value);
-        this.timeModify.addEventListener('input', e => this.currentValuesProxy.time = this.timeModify.value);
-        this.videoPlayer.addEventListener('volumechange', e => this.currentValuesProxy.sound = this.videoPlayer.volume);
+        this.soundModify.addEventListener('input', () => this.currentValuesProxy.sound = Number(this.soundModify.value));
+        this.timeModify.addEventListener('input', () => {
+            this.timeSliderChange = true;
+            this.currentValuesProxy.time = Number(this.timeModify.value);
+            this.timeSliderChange = false;
+        });
+        this.videoPlayer.addEventListener('volumechange', () => this.currentValuesProxy.sound = Number(this.videoPlayer.volume));
+        this.videoPlayer.addEventListener('timeupdate', () => {
+            this.videoTimeLineChange = true;
+            this.currentValuesProxy.time = Number(this.videoPlayer.currentTime);
+            this.videoTimeLineChange = false;
+        })
     }
 
     setUpSynchronization(sound = 50, time = 0) {
@@ -85,9 +96,17 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     synchronizeTime(value) {
-        this.timeModify.value = value;
-        this.timeView.value = value;
-        this.videoPlayer.currentTime = value;
+        this.timeModify.value = this.videoTimeLineChange ? this.normalizeTimeToSlider(value) : value;
+        this.timeView.value = this.videoTimeLineChange ? this.normalizeTimeToSlider(value) : value;
+        this.videoPlayer.currentTime =  this.timeSliderChange ? this.normalizeTimeToPlayer(value) : value;
+    }
+
+    normalizeTimeToPlayer(time) {
+        return this.videoPlayer.duration * time;
+    }
+
+    normalizeTimeToSlider(time) {
+        return  time / this.videoPlayer.duration;
     }
     
 }
