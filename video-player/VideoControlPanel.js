@@ -99,15 +99,15 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     synchronizeTime(value) {
-        if(this.videoTimeLineChange) {
-            if(this.videoPlayer.currentTime === value) {
+        if (this.videoTimeLineChange) {
+            if(this.timeView.value === this.normalizeTimeToSlider(value)) {
                 return void 0;
             }
             this.timeModify.value = this.normalizeTimeToSlider(value);
             this.timeView.value = this.normalizeTimeToSlider(value);
-            this.videoPlayer.currentTime =  value;
+            this.videoPlayer.currentTime = value;
         } else if (this.timeSliderChange) {
-            if(this.timeModify.value === value) {
+            if(this.timeView.value === value) {
                 return void 0;
             }
             this.timeModify.value = value;
@@ -121,7 +121,7 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     normalizeTimeToSlider(time) {
-        return  time / this.videoPlayer.duration;
+        return time / this.videoPlayer.duration;
     }
     
 }
