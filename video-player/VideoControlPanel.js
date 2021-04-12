@@ -100,14 +100,10 @@ export class VideoControlPanel extends HTMLElement {
 
     synchronizeTime(value) {
         if (this.videoTimeLineChange) {
-            if(this.timeView.value === this.normalizeTimeToSlider(value)) {
-                return void 0;
-            }
             this.timeModify.value = this.normalizeTimeToSlider(value);
             this.timeView.value = this.normalizeTimeToSlider(value);
-            this.videoPlayer.currentTime = value;
         } else if (this.timeSliderChange) {
-            if(this.timeView.value === value) {
+            if(this.timeView.value == value) {
                 return void 0;
             }
             this.timeModify.value = value;
