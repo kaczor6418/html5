@@ -1,3 +1,5 @@
+import {VideoControlPanel} from './VideoControlPanel.js';
+
 const videoPlayer = document.querySelector('video');
 const playlistWrapper = document.querySelector('.movies-wrapper');
 const addMovieButton = document.querySelector('.add-movie__button');
@@ -225,3 +227,6 @@ const renderList = () => {
 movies.forEach(movie => initializeLitenersForMovieItem(movie));
 
 renderList();
+
+const videoControlPanel = new VideoControlPanel(videoPlayer);
+document.body.appendChild(videoControlPanel);
