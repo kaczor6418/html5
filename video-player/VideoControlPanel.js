@@ -56,7 +56,7 @@ export class VideoControlPanel extends HTMLElement {
     setUpListeners() {
         this.soundModify.addEventListener('input', e => this.currentValuesProxy.sound = this.soundModify.value);
         this.timeModify.addEventListener('input', e => this.currentValuesProxy.time = this.timeModify.value);
-        this.videoPlayer.addEventListener('volumechange', e => console.log(e));
+        this.videoPlayer.addEventListener('volumechange', e => this.currentValuesProxy.sound = this.videoPlayer.volume);
     }
 
     setUpSynchronization(sound = 50, time = 0) {
@@ -87,7 +87,7 @@ export class VideoControlPanel extends HTMLElement {
     synchronizeTime(value) {
         this.timeModify.value = value;
         this.timeView.value = value;
-        this.videoPlayer.volume = value;
+        this.videoPlayer.currentTime = value;
     }
     
 }
