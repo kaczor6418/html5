@@ -90,15 +90,30 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     synchronizeSound(value) {
+        if(this.soundView.value === value) {
+            return void 0;
+        }
         this.soundModify.value = value;
         this.soundView.value = value;
         this.videoPlayer.volume = value;
     }
 
     synchronizeTime(value) {
-        this.timeModify.value = this.videoTimeLineChange ? this.normalizeTimeToSlider(value) : value;
-        this.timeView.value = this.videoTimeLineChange ? this.normalizeTimeToSlider(value) : value;
-        this.videoPlayer.currentTime =  this.timeSliderChange ? this.normalizeTimeToPlayer(value) : value;
+        if(this.videoTimeLineChange) {
+            if(this.videoPlayer.currentTime === value) {
+                return void 0;
+            }
+            this.timeModify.value = this.normalizeTimeToSlider(value);
+            this.timeView.value = this.normalizeTimeToSlider(value);
+            this.videoPlayer.currentTime =  value;
+        } else if (this.timeSliderChange) {
+            if(this.timeModify.value === value) {
+                return void 0;
+            }
+            this.timeModify.value = value;
+            this.timeView.value = value;
+            this.videoPlayer.currentTime = this.normalizeTimeToPlayer(value);
+        }
     }
 
     normalizeTimeToPlayer(time) {
@@ -110,5 +125,4 @@ export class VideoControlPanel extends HTMLElement {
     }
     
 }
-
 customElements.define(VideoControlPanel.TAG, VideoControlPanel);
