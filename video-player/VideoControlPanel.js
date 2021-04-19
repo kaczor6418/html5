@@ -27,7 +27,6 @@ const styles = `
 `;
 
 export class VideoControlPanel extends HTMLElement {
-    static TAG = 'kk-video-control-panel';
 
     constructor(player) {
         super();
@@ -121,4 +120,4 @@ export class VideoControlPanel extends HTMLElement {
     }
     
 }
-customElements.define(VideoControlPanel.TAG, VideoControlPanel);
+customElements.define('kk-video-control-panel', VideoControlPanel);
