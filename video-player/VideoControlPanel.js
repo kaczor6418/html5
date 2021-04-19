@@ -1,5 +1,11 @@
 const template = `
 <section>
+    <h3>Watch mode</h3>
+    <button id="full-screen-mode">Full screen mode</button>
+    <button id="cinema-mode">Cinema mode</button>
+    <button id="normal-mode">Regular mode</button>
+</section>
+<section>
     <h3>Sound settings</h3>
     <div class="volume-level__modify">
         <input type="range" min="0" max="1" value="0" step="0.01" id="sound-modify" name="sound-modify"/>
@@ -46,6 +52,9 @@ export class VideoControlPanel extends HTMLElement {
         this.soundView = this.shadowRoot.querySelector('#sound-view');
         this.timeModify = this.shadowRoot.querySelector('#time-modify');
         this.timeView = this.shadowRoot.querySelector('#time-view');
+        this.fullScreenMode = this.shadowRoot.querySelector('#full-screen-mode');
+        this.cinemaMode = this.shadowRoot.querySelector('#cinema-mode');
+        this.regularMode = this.shadowRoot.querySelector('#normal-mode');
     }
 
     injectStyles(styles) {
@@ -66,7 +75,10 @@ export class VideoControlPanel extends HTMLElement {
             this.videoTimeLineChange = true;
             this.currentValuesProxy.time = Number(this.videoPlayer.currentTime);
             this.videoTimeLineChange = false;
-        })
+        });
+        this.fullScreenMode.addEventListener('click', () => this.videoPlayer.requestFullscreen());
+        this.cinemaMode.addEventListener('click', () => this.videoPlayer.setAttribute('style', 'width: 100%'));
+        this.regularMode.addEventListener('click', () => this.videoPlayer.removeAttribute('style'));
     }
 
     setUpSynchronization(sound = 50, time = 0) {
