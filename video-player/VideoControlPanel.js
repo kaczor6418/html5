@@ -1,4 +1,5 @@
 const template = `
+<h2>Control panel</h2>
 <section>
     <h3>Watch mode</h3>
     <button id="full-screen-mode">Full screen mode</button>
