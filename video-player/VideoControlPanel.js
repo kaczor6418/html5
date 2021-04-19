@@ -44,8 +44,14 @@ export class VideoControlPanel extends HTMLElement {
         this.videoPlayer = player;
         this.timeSliderChange = false;
         this.videoTimeLineChange = false;
+        this.loadVideosSavedTimestamps();
         this.setUpSynchronization(this.videoPlayer.volume, this.videoPlayer.currentTime);
         this.setUpListeners();
+    }
+
+    loadVideosSavedTimestamps() {
+        const videoTimestamps = localStorage.getItem('video-timestamp');
+        this.videoCurrentTimeDictionary = videoTimestamps == null ? {} : JSON.parse(videoTimestamps);
     }
 
     getElementsReference() {
@@ -71,6 +77,13 @@ export class VideoControlPanel extends HTMLElement {
             this.currentValuesProxy.time = Number(this.timeModify.value);
             this.timeSliderChange = false;
         });
+        this.videoPlayer.addEventListener('loadedmetadata', (e) => {
+            this.videoTimeLineChange = true;
+            const videoTime = this.videoCurrentTimeDictionary[this.videoPlayer.src] || 0;
+            this.currentValuesProxy.time = videoTime;
+            this.videoTimeLineChange = false;
+            this.videoPlayer.currentTime = videoTime;
+        });
         this.videoPlayer.addEventListener('volumechange', () => this.currentValuesProxy.sound = Number(this.videoPlayer.volume));
         this.videoPlayer.addEventListener('timeupdate', () => {
             this.videoTimeLineChange = true;
@@ -89,6 +102,10 @@ export class VideoControlPanel extends HTMLElement {
         };
         this.currentValuesProxy = new Proxy(this.currentValues, {
             set: (obj, prop, value) => {
+                if (obj[prop] === value) {
+                    return true;
+                }
+                obj[prop] = value;
                 if (prop === 'sound') {
                     this.synchronizeSound(value);
                 } else if (prop === 'time') {
@@ -102,7 +119,7 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     synchronizeSound(value) {
-        if(this.soundView.value === value) {
+        if (this.soundView.value === value) {
             return void 0;
         }
         this.soundModify.value = value;
@@ -114,13 +131,24 @@ export class VideoControlPanel extends HTMLElement {
         if (this.videoTimeLineChange) {
             this.timeModify.value = this.normalizeTimeToSlider(value);
             this.timeView.value = this.normalizeTimeToSlider(value);
+            if (value !== 0) {
+                this.saveVideoCurrentTime(value);
+            }
         } else if (this.timeSliderChange) {
-            if(this.timeView.value == value) {
+            if (this.timeView.value == value) {
                 return void 0;
             }
             this.timeModify.value = value;
             this.timeView.value = value;
             this.videoPlayer.currentTime = this.normalizeTimeToPlayer(value);
+            this.saveVideoCurrentTime(this.normalizeTimeToPlayer(value));
+        }
+    }
+
+    saveVideoCurrentTime(time) {
+        if (this.videoCurrentTimeDictionary[this.videoPlayer.src] !== time) {
+            this.videoCurrentTimeDictionary[this.videoPlayer.src] = time;
+            localStorage.setItem('video-timestamp', JSON.stringify(this.videoCurrentTimeDictionary));
         }
     }
 
@@ -129,8 +157,11 @@ export class VideoControlPanel extends HTMLElement {
     }
 
     normalizeTimeToSlider(time) {
+        if (time === 0) {
+            return 0;
+        }
         return time / this.videoPlayer.duration;
     }
-    
+
 }
 customElements.define('kk-video-control-panel', VideoControlPanel);

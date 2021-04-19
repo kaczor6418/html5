@@ -8,7 +8,6 @@ const newMovieUrl = document.querySelector('#movie-url');
 const removeSelectedButton = document.querySelector('#remove-selected');
 const selectedVideos = new Map();
 let movies = Array.from(document.querySelectorAll('.movie'));
-const queeToPlay = movies.map(movie => movie.querySelector('.movie__link').getAttribute('data-video'));
 
 let shiftSelectCenterMovie = null;
 let targetDropIndex = 0;
