@@ -6,7 +6,7 @@ const template = `
         <label for="sound-modify">Modify</label>
     </div>
     <div class="volume-level__view">
-        <input type="range" min="0" max="1" value="0" step="0.01" id="sound-view" name="sound-view" disabled/>
+        <progress type="range" min="0" max="1" value="0"  id="sound-view" name="sound-view"></progress>
         <label for="sound-view">View</label>
     </div>
 </section>
@@ -17,7 +17,7 @@ const template = `
         <label for="time-modify" >Modify</label>
     </div>
     <div class="time-point__view" >
-        <input type="range" min="0" max="1" value="0" step="0.01" id="time-view" name="time-view" disabled/>
+        <progress type="range" min="0" max="1" value="0"  id="time-view" name="time-view"></progress>
         <label for="time-view">View</label>
     </div>
 </section>
