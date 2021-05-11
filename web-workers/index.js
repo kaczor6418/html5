@@ -17,8 +17,8 @@ const progressBarObserver = new MutationObserver( () => {
 progressBarObserver.observe(postprocessingProgress, { attributes: true });
 
 const disposeWorkers = () => {
-    for(const [worker, listener] of workers) {
-        worker.removeEventListener('message', listener);
+    for(const worker of workers) {
+        worker.terminate();
     }
     workers.length = 0;
 }
@@ -61,9 +61,8 @@ const startPreprocessing = () => {
     for(const [start, end] of pixelRanges) {
         const imageData = inputImgCtx.getImageData(0, start, inputImg.width, end);
         const worker = new Worker('./greyscaleWorker.js');
-        const workerListener = createWorkerListener(start);
-        workers.push([worker, workerListener]);
-        worker.addEventListener('message', workerListener);
+        workers.push(worker);
+        worker.addEventListener('message', createWorkerListener(start));
         worker.postMessage({ imageData }, [ imageData.data.buffer ]);
     }
 }
