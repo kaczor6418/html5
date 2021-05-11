@@ -13,12 +13,22 @@
             <h2>Processing input</h2>
             <div>
                 <label for="photo-input">Choose image for processing</label>
-                <input id="photo-input" name="photo-input" type="file" />
+                <input id="photo-input" name="photo-input" type="file" accept="image/*" />
             </div>
-            <canvas width="720" height="480" id="image-preview" accept="image/*" />
+            <canvas id="image-input" />
         </section>
         <section>
             <h2>Processing output</h2>
+            <div>
+                <label for="workers-count">Put number of workers you want to use:</label>
+                <input id="workers-count" name="workers-count" type="number" value="4" />
+            </div>
+            <button id="postprocessing">Start postprocessing</button>
+            <div>
+                <label for="postprocessing-progress">Postprocessing progress:</label>
+                <progress id="postprocessing-progress" max="100" value="0"></progress>
+            </div>
+            <canvas id="image-output" />
         </section>
     </main>
     <script type="module" src="./index.js"></script>
