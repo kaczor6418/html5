@@ -3,32 +3,16 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Image processing</title>
+    <title>Image postprocessing</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 <body>
-    <h1>Image processing</h1>
+    <h1>Image postprocessing</h1>
     <main>
+        <kk-image-loader></kk-image-loader>
         <section>
-            <h2>Processing input</h2>
-            <div>
-                <label for="photo-input">Choose image for processing</label>
-                <input id="photo-input" name="photo-input" type="file" accept="image/*" />
-            </div>
-            <canvas id="image-input" />
-        </section>
-        <section>
-            <h2>Processing output</h2>
-            <div>
-                <label for="workers-count">Put number of workers you want to use:</label>
-                <input id="workers-count" name="workers-count" type="number" value="4" />
-            </div>
-            <button id="postprocessing">Start postprocessing</button>
-            <div>
-                <label for="postprocessing-progress">Postprocessing progress:</label>
-                <progress id="postprocessing-progress" max="100" value="0"></progress>
-            </div>
-            <canvas id="image-output" />
+            <h2>Postprocessing</h2>
+            <kk-grayscale-processor></kk-grayscale-processor>
         </section>
     </main>
     <script type="module" src="./index.js"></script>
