@@ -46,7 +46,7 @@ export class GrayscaleProcessor extends HTMLElement {
 
   setInputImg(inputImg) {
     this.inputImg = inputImg;
-    this.inputCtx = inputImg.getContext('2d');;
+    this.inputCtx = inputImg.getContext('2d');
     this.outputImg.width = this.inputImg.width;
     this.outputImg.height = this.inputImg.height;
     this.clearOutputCanvas();
