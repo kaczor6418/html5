@@ -69,7 +69,7 @@ export class ImageColumnsHistogramProcessor extends HTMLElement {
     const columnsRanges = this.getWorkersColumnsRanges();
     for(const ranges of columnsRanges) {
       for(const [start, end] of ranges) {
-        const imageData = this.inputCtx.getImageData(start, 0, end, this.inputImg.height);
+        const imageData = this.inputCtx.getImageData(start, 0, end - start, this.inputImg.height);
         const worker = new Worker('./averageColumnColorWorker.js');
         this.workers.push(worker);
         worker.addEventListener('message', this.createWorkerListener(start));
@@ -80,7 +80,7 @@ export class ImageColumnsHistogramProcessor extends HTMLElement {
 
   getWorkersColumnsRanges() {
     const width = this.inputImg.width;
-    const columnsCount = this.columnsCount.value;
+    const columnsCount = parseInt(this.columnsCount.value);
     const workersCount = parseInt(this.workersCount.value);
     const columnSize = parseInt(width / columnsCount);
     const columnsRanges = [];
@@ -90,6 +90,7 @@ export class ImageColumnsHistogramProcessor extends HTMLElement {
         columnsRanges.push([start, end]);
         start = end;
     }
+    columnsRanges[columnsRanges.length - 1][1] =  width;
     const columnsPerWorker = parseInt(columnsCount / workersCount);
     const workersColumns = [];
     while(columnsRanges.length !== 0) {
