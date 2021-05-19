@@ -1,6 +1,8 @@
+import { AbstractWebComponent } from './AbstractWebComponent.js';
+
 const template = `
-<section>
-  <h3>Columns Histogram</h3>
+<details>
+  <summary>Columns Histogra</summary>
   <div>
       <label for="workers-count">Put number of workers you want to use:</label>
       <input id="workers-count" name="workers-count" type="number" value="4" />
@@ -15,20 +17,19 @@ const template = `
       <progress id="postprovessing-progress" max="100" value="0"></progress>
   </div>
   <canvas id="histogram-output" />
-</section>`;
+</details>`;
 
-export class ImageColumnsHistogramProcessor extends HTMLElement {
+export class ImageColumnsHistogramProcessor extends AbstractWebComponent {
   
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.innerHTML = template;
+    super(template);
     this.workers = [];
     this.getElementsReferences();
     this.setUpListeners();
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.outputCtx = this.output.getContext('2d');
   }
 
@@ -70,7 +71,7 @@ export class ImageColumnsHistogramProcessor extends HTMLElement {
     for(const ranges of columnsRanges) {
       for(const [start, end] of ranges) {
         const imageData = this.inputCtx.getImageData(start, 0, end - start, this.inputImg.height);
-        const worker = new Worker('./averageColumnColorWorker.js');
+        const worker = new Worker('./workers/averageColumnColorWorker.js');
         this.workers.push(worker);
         worker.addEventListener('message', this.createWorkerListener(start));
         worker.postMessage({ imageData }, [ imageData.data.buffer ]);

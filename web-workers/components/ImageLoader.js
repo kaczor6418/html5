@@ -1,3 +1,5 @@
+import { AbstractWebComponent } from './AbstractWebComponent.js';
+
 const template = `
 <section>
   <h2>Postprocessing input</h2>
@@ -8,18 +10,17 @@ const template = `
   <canvas id="image-input" />
 </section>`;
 
-export class ImageLoader extends HTMLElement {
+export class ImageLoader extends AbstractWebComponent {
   
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.innerHTML = template;
+    super(template);
     this.baseImage = new Image();
     this.getElementsReferences();
     this.setUpListeners();
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.imageCtx = this.imageInput.getContext('2d');
   }
 

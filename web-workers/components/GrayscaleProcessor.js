@@ -1,6 +1,8 @@
+import { AbstractWebComponent } from './AbstractWebComponent.js';
+
 const template = `
-<section>
-  <h3>Grayscale</h3>
+<details>
+  <summary>Grayscale</summary>
   <div>
       <label for="workers-count">Put number of workers you want to use:</label>
       <input id="workers-count" name="workers-count" type="number" value="4" />
@@ -11,19 +13,18 @@ const template = `
       <progress id="grayscale-progress" max="100" value="0"></progress>
   </div>
   <canvas id="grayscale-output" />
-</section>`;
+</details>`;
 
-export class GrayscaleProcessor extends HTMLElement {
+export class GrayscaleProcessor extends AbstractWebComponent {
   constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.innerHTML = template;
+    super(template);
     this.workers = [];
     this.getElementsReferences();
     this.setUpListeners();
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.outputCtx = this.outputImg.getContext('2d');
   }
 
@@ -63,7 +64,7 @@ export class GrayscaleProcessor extends HTMLElement {
     const pixelRanges = this.getWorkersPixelsRanges();
     for(const [start, end] of pixelRanges) {
         const imageData = this.inputCtx.getImageData(0, start, this.inputImg.width, end);
-        const worker = new Worker('./grayscaleWorker.js');
+        const worker = new Worker('./workers/grayscaleWorker.js');
         this.workers.push(worker);
         worker.addEventListener('message', this.createWorkerListener(start));
         worker.postMessage({ imageData }, [ imageData.data.buffer ]);
