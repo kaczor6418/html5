@@ -1,4 +1,4 @@
-import { AbstractWebComponent } from './AbstractWebComponent.js';
+import {AbstractWebComponent} from './AbstractWebComponent.js';
 
 const template = `
 <details>
@@ -36,13 +36,13 @@ export class GrayscaleProcessor extends AbstractWebComponent {
   }
 
   setUpListeners() {
-    this.startBtn.addEventListener('click', this.startPreprocessing.bind(this));
-    const progressBarObserver = new MutationObserver( () => {
-      if(this.grayscaleProgress.value === this.grayscaleProgress.max) {
-          this.disposeWorkers();
+    this.startBtn.addEventListener('click', this.startPreprocessing);
+    const progressBarObserver = new MutationObserver(() => {
+      if (this.grayscaleProgress.value === this.grayscaleProgress.max) {
+        this.disposeWorkers();
       }
     });
-    progressBarObserver.observe(this.grayscaleProgress, { attributes: true });
+    progressBarObserver.observe(this.grayscaleProgress, {attributes: true});
   }
 
   setInputImg(inputImg) {
@@ -50,63 +50,62 @@ export class GrayscaleProcessor extends AbstractWebComponent {
     this.inputCtx = inputImg.getContext('2d');
     this.outputImg.width = this.inputImg.width;
     this.outputImg.height = this.inputImg.height;
-    this.clearOutputCanvas();
-    this.resetProgess();
+    this.resetOutputCanvas();
+    this.resetProgress();
   }
 
-  startPreprocessing() {
-    if(this.inputImg == null) {
+  startPreprocessing = () => {
+    if (this.inputImg == null) {
       console.error('Before you start postprocessing you need to provide INPUT IMAGE');
       return void 0;
     }
-    this.resetProgess();
-    this.clearOutputCanvas();
+    this.resetProgress();
+    this.resetOutputCanvas();
     const pixelRanges = this.getWorkersPixelsRanges();
-    for(const [start, end] of pixelRanges) {
-        const imageData = this.inputCtx.getImageData(0, start, this.inputImg.width, end);
-        const worker = new Worker('./workers/grayscaleWorker.js');
-        this.workers.push(worker);
-        worker.addEventListener('message', this.createWorkerListener(start));
-        worker.postMessage({ imageData }, [ imageData.data.buffer ]);
+    for (const [start, end] of pixelRanges) {
+      const imageData = this.inputCtx.getImageData(0, start, this.inputImg.width, end);
+      const worker = new Worker('./workers/grayscaleWorker.js');
+      this.workers.push(worker);
+      worker.addEventListener('message', this.createWorkerListener(start));
+      worker.postMessage({imageData}, [imageData.data.buffer]);
     }
   }
 
-  getWorkersPixelsRanges () {
+  getWorkersPixelsRanges() {
     const height = this.inputImg.height;
     const workersCount = parseInt(this.workersCount.value);
     const workerPixelsSize = Math.floor(height / workersCount);
     const workersPixelsRanges = [];
     let start = 0;
-    for(let i = 1; i < workersCount; i++) {
-        let end = start + workerPixelsSize;
-        workersPixelsRanges.push([start, end]);
-        start = end;
+    for (let i = 1; i < workersCount; i++) {
+      let end = start + workerPixelsSize;
+      workersPixelsRanges.push([start, end]);
+      start = end;
     }
     workersPixelsRanges.push([start, height]);
     return workersPixelsRanges;
   }
 
   createWorkerListener(start) {
-    return ({ data }) => {
-        this.outputCtx.putImageData(data, 0, start);
-        this.grayscaleProgress.value = parseInt(this.grayscaleProgress.value) + 1;
+    return ({data}) => {
+      this.outputCtx.putImageData(data, 0, start);
+      this.grayscaleProgress.value = parseInt(this.grayscaleProgress.value) + 1;
     }
   }
 
-
-  clearOutputCanvas() {
-    this.outputCtx.fillStyle='black';
+  resetOutputCanvas() {
+    this.outputCtx.fillStyle = 'black';
     this.outputCtx.fillRect(0, 0, this.outputImg.width, this.outputImg.height);
   }
 
-  resetProgess() {
+  resetProgress() {
     this.grayscaleProgress.value = 0;
     this.grayscaleProgress.max = parseInt(this.workersCount.value);
   }
 
   disposeWorkers() {
-    for(const worker of this.workers) {
-        worker.terminate();
+    for (const worker of this.workers) {
+      worker.terminate();
     }
     this.workers.length = 0;
   }

@@ -3,7 +3,7 @@ let componentIdCounter = 0;
 export class AbstractWebComponent extends HTMLElement {
   constructor(template, styles, props) {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({mode: 'open'});
     this.kkID = componentIdCounter++;
     this.shadowRoot.innerHTML = template;
     this.injectStyles(styles);
