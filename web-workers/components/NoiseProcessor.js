@@ -140,9 +140,9 @@ export class NoiseProcessor extends AbstractWebComponent {
       return void 0;
     }
     this.aimationBtn.textContent = 'Stop animation';
-    this.workers = new Array(parseInt(this.workersCount.value, 10)).fill(new Worker('./workers/noiseWorker.js'));
+    this.workers = Array.from( new Array(parseInt(this.workersCount.value, 10)), () => new Worker('./workers/noiseWorker.js'));
     const workersRanges = this.getWorkersRanges();
-    const imageDate = new Array(workersRanges.length).fill([]);
+    const imageDate = Array.from(new Array(workersRanges.length), () => []);
     for (let i = 0; i < workersRanges.length; i++) {
       for (const {x, y, width, height} of workersRanges[i]) {
         imageDate[i].push(this.inputCtx.getImageData(x, y, width, height))
