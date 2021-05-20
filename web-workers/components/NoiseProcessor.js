@@ -80,7 +80,45 @@ export class NoiseProcessor extends AbstractWebComponent {
     this.progressBar.max = parseInt(this.workersCount.value);
   }
 
+  createWorkerListener = (x, y) => {
+    return ({data}) => {
+      this.outputCtx.putImageData(data, x, y);
+      this.progressBar.value = parseInt(this.progressBar.value) + 1;
+    }
+  }
+
   startPreprocessing = () => {
+    this.resetProgress();
+    this.resetOutputCanvas();
+    const workersRanges = this.getWorkersRanges();
+    for(const range of workersRanges) {
+      const worker = new Worker('./workers/noiseWorker.js');
+      this.workers.push(worker);
+      for(const {x, y, width, height} of range) {
+        const imageData = this.inputCtx.getImageData(x, y, width, height);
+        worker.addEventListener('message', this.createWorkerListener(x, y));
+        worker.postMessage({imageData}, [imageData.data.buffer]);
+      }
+    }
+  }
+
+  getWorkersRanges() {
+    const workersCount = parseInt(this.workersCount.value, 10);
+    const workerSize = parseInt(this.pickersWrapper.childElementCount / workersCount, 10);
+    const pickersProps = Array.from(this.pickersWrapper.querySelectorAll('kk-rectangle-picker')).map(picker => picker.rectangleProperties);
+    const ranges = [];
+    for(let i = 0; i < workersCount; i++) {
+      ranges.push(pickersProps.splice(0, workerSize));
+    }
+    ranges[ranges.length - 1] = [...ranges[ranges.length - 1], ...pickersProps.splice(0)];
+    return ranges;
+  }
+
+  disposeWorkers() {
+    for (const worker of this.workers) {
+      worker.terminate();
+    }
+    this.workers.length = 0;
   }
 }
 
