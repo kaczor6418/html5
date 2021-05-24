@@ -46,7 +46,8 @@ const inserMoviesInNewPlace = () => {
     }
     const moviesBeforeInsert = movies.filter((_movie, idx) => idx <= targetDropIndex);
     const moviesAfterInsert = movies.filter((_movie, idx) => idx > targetDropIndex);
-    movies = [...moviesBeforeInsert,  ...Array.from(selectedVideos.values()), ...moviesAfterInsert]
+    movies.length = 0;
+    movies.push(...moviesBeforeInsert,  ...Array.from(selectedVideos.values()), ...moviesAfterInsert);
 }
 
 const moveUp = (movie) => {
@@ -227,5 +228,5 @@ movies.forEach(movie => initializeLitenersForMovieItem(movie));
 
 renderList();
 
-const videoControlPanel = new VideoControlPanel(videoPlayer);
+const videoControlPanel = new VideoControlPanel(videoPlayer, movies);
 document.body.appendChild(videoControlPanel);

@@ -7,6 +7,13 @@ const template = `
     <button id="normal-mode">Regular mode</button>
 </section>
 <section>
+    <h3>Play settings</h3>
+    <button id="prev">⇚</button>
+    <button id="start">▶</button>
+    <button id="stop">■</button>
+    <button id="next">⇛</button>
+</section>
+<section>
     <h3>Sound settings</h3>
     <div class="volume-level__modify">
         <input type="range" min="0" max="1" value="0" step="0.01" id="sound-modify" name="sound-modify"/>
@@ -35,13 +42,14 @@ const styles = `
 
 export class VideoControlPanel extends HTMLElement {
 
-    constructor(player) {
+    constructor(player, moviesList) {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = template;
         this.injectStyles(styles);
         this.getElementsReference();
         this.videoPlayer = player;
+        this.moviesList = moviesList;
         this.timeSliderChange = false;
         this.videoTimeLineChange = false;
         this.loadVideosSavedTimestamps();
@@ -62,6 +70,10 @@ export class VideoControlPanel extends HTMLElement {
         this.fullScreenMode = this.shadowRoot.querySelector('#full-screen-mode');
         this.cinemaMode = this.shadowRoot.querySelector('#cinema-mode');
         this.regularMode = this.shadowRoot.querySelector('#normal-mode');
+        this.playVideo = this.shadowRoot.querySelector('#start');
+        this.stopVideo = this.shadowRoot.querySelector('#stop');
+        this.nextVideo = this.shadowRoot.querySelector('#next');
+        this.prevVideo = this.shadowRoot.querySelector('#prev');
     }
 
     injectStyles(styles) {
@@ -93,6 +105,22 @@ export class VideoControlPanel extends HTMLElement {
         this.fullScreenMode.addEventListener('click', () => this.videoPlayer.requestFullscreen());
         this.cinemaMode.addEventListener('click', () => this.videoPlayer.setAttribute('style', 'width: 100%'));
         this.regularMode.addEventListener('click', () => this.videoPlayer.removeAttribute('style'));
+        this.playVideo.addEventListener('click', () => this.videoPlayer.play());
+        this.stopVideo.addEventListener('click', () => this.videoPlayer.pause());
+        this.nextVideo.addEventListener('click', () => {
+            const currentVideoIndex = this.findCurrentVideoIndex();
+            if(currentVideoIndex === this.moviesList.length - 1) {
+                return void 0;
+            }
+            this.videoPlayer.src = this.getMovieSrcFromIndex(currentVideoIndex + 1);
+        });
+        this.prevVideo.addEventListener('click', () => {
+            const currentVideoIndex = this.findCurrentVideoIndex();
+            if(currentVideoIndex === 0) {
+                return void 0;
+            }
+            this.videoPlayer.src = this.getMovieSrcFromIndex(currentVideoIndex - 1);
+        });
     }
 
     setUpSynchronization(sound = 50, time = 0) {
@@ -161,6 +189,14 @@ export class VideoControlPanel extends HTMLElement {
             return 0;
         }
         return time / this.videoPlayer.duration;
+    }
+
+    findCurrentVideoIndex() {
+        return this.moviesList.findIndex(movie => movie.querySelector(`[data-video="${this.videoPlayer.src}"]`));
+    }
+
+    getMovieSrcFromIndex(movieIndex) {
+        return this.moviesList[movieIndex].querySelector('label').getAttribute('data-video');
     }
 
 }
