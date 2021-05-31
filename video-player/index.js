@@ -1,5 +1,7 @@
 import {VideoControlPanel} from './VideoControlPanel.js';
 
+const importBtn = document.querySelector('#import-playlist');
+const exportBtn = document.querySelector('#export-playlist');
 const videoPlayer = document.querySelector('video');
 const playlistWrapper = document.querySelector('.movies-wrapper');
 const addMovieButton = document.querySelector('.add-movie__button');
@@ -7,10 +9,51 @@ const newMovieTitle = document.querySelector('#movie-title');
 const newMovieUrl = document.querySelector('#movie-url');
 const removeSelectedButton = document.querySelector('#remove-selected');
 const selectedVideos = new Map();
+let fileReader = new FileReader();
 let movies = Array.from(document.querySelectorAll('.movie'));
 
 let shiftSelectCenterMovie = null;
 let targetDropIndex = 0;
+
+importBtn.addEventListener('change', () => {
+    const file = importBtn.files.item(0);
+    fileReader.readAsText(file);
+})
+
+fileReader.addEventListener('loadend', () => {
+    movies.length = 0;
+    const playlist = fileReader.result.split('\n');
+    playlist.shift();
+    playlist
+        .map(rawItem => {
+            const [name, link] = rawItem.split(';');
+            return {name, link};
+        })
+        .forEach(({name, link}) => {
+        createNewMovieElement(name, link);
+        });
+    renderList();
+ });
+
+exportBtn.addEventListener('click', () => {
+    const headers = ['name', 'link'].join(';');
+    const rowsData = movies
+        .map(movieElement => {
+            const movie = movieElement.querySelector('.movie__link');
+            return {
+                name: movie.textContent,
+                link: movie.getAttribute('data-video')
+            }
+        })
+        .map(({name, link}) => name.concat(`;${link}`)).join('\n');
+    const csvContent = new Blob([headers.concat(`\n${rowsData}`)], { type: 'text/csv' });
+    const csvUrl = URL.createObjectURL(csvContent);
+    const downloadCsvLink = document.createElement('a');
+    downloadCsvLink.href = csvUrl;
+    downloadCsvLink.target = '_blank';
+    downloadCsvLink.download = 'VideoPlaylist.csv';
+    downloadCsvLink.click();
+});
 
 playlistWrapper.addEventListener('drop', (e) => {
     e.preventDefault();
@@ -24,7 +67,9 @@ playlistWrapper.addEventListener('dragover', (e) => {
 
 addMovieButton.addEventListener('click', (e) => {
     e.preventDefault();
-    createNewMovieElement();
+    createNewMovieElement(newMovieTitle.value, newMovieUrl.value);
+    newMovieTitle.value = '';
+    newMovieUrl.value = '';
 });
 
 removeSelectedButton.addEventListener('click', () => {
@@ -181,17 +226,17 @@ const initializeLitenersForMovieItem = (movieItem) => {
     setRemoveListener(movieItem);
 }
 
-const createNewMovieElement = () => {
+const createNewMovieElement = (movieName, movieUrl) => {
     const movieItem = document.createElement('li');
     movieItem.className = 'movie';
     movieItem.draggable = true;
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'checkbox';
-    checkbox.name = newMovieTitle.value;
+    checkbox.name = movieName;
     const title = document.createElement('span');
-    title.setAttribute('data-video', newMovieUrl.value);
-    title.textContent = newMovieTitle.value;
+    title.setAttribute('data-video', movieUrl);
+    title.textContent = movieName;
     title.className = 'movie__link';
     const up = document.createElement('button');
     up.textContent = '↑';
@@ -211,9 +256,6 @@ const createNewMovieElement = () => {
     initializeLitenersForMovieItem(movieItem);
     movieItem.setAttribute('data-index', (movies.length - 1).toString());
     playlistWrapper.appendChild(movieItem);
-    newMovieUrl.value = '';
-    newMovieTitle.value = '';
-
 }
 
 const renderList = () => {
